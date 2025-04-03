@@ -58,7 +58,7 @@ export default function HowItWorksSection({
 
 function StepCard({ step }: { step: Step }) {
     return (
-        <div className="flex flex-col items-center space-y-4 rounded-lg border p-6 text-center shadow-sm transition-all hover:shadow-md">
+        <div className=" max-w-md flex flex-col items-center space-y-4 rounded-lg border p-6 text-center shadow-sm transition-all hover:shadow-md">
             {/* Icon */}
             <div className="relative h-16 w-16 mb-2">
                 {step.icon ? (

@@ -9,8 +9,13 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { FormSection } from "@/sanity.types";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "./ui/calendar";
 
 const generateSchema = (fields: FormSection["fields"] = []) => {
     const schemaObject: Record<string, any> = {};
@@ -87,6 +92,9 @@ export default function FormSectionComponent(data: FormSection) {
                 ) {
                     acc[field.name!] = "";
                 }
+                if (field.type === "number") {
+                    acc[field.name!] = "0";
+                }
                 return acc;
             },
             {} as Record<string, string>
@@ -106,14 +114,17 @@ export default function FormSectionComponent(data: FormSection) {
     const isLoading = form.formState.isSubmitting;
 
     return (
-        <section className="py-16 px-4 md:px-6 lg:px-8" style={{ backgroundColor: data.backgroundColor?.hex }}>
+        <section
+            className="py-8 px-4 rounded-xl md:px-4 lg:px-8"
+            style={{ backgroundColor: data.backgroundColor?.hex }}
+        >
             <div className="container mx-auto max-w-3xl">
-                <div className="text-center mb-8">
+                <div className="text-center mb-4">
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{data.title}</h2>
                     <p className="text-slate-600 max-w-2xl mx-auto">{data.description}</p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
+                <div className="p-6 md:p-8">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                             {data.fields?.map((formfield) => {
@@ -128,7 +139,28 @@ export default function FormSectionComponent(data: FormSection) {
                                                     <FormItem>
                                                         <FormLabel>{formfield.label}</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder={formfield.label} {...field} />
+                                                            <Input placeholder={formfield.placeholder} {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        );
+                                    case "number":
+                                        return (
+                                            <FormField
+                                                key={formfield._key}
+                                                control={form.control}
+                                                name={formfield.name as never}
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>{formfield.label}</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                type="number"
+                                                                placeholder={formfield.placeholder}
+                                                                {...field}
+                                                            />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -235,7 +267,7 @@ export default function FormSectionComponent(data: FormSection) {
                                                             onValueChange={field.onChange}
                                                             defaultValue={field.value}
                                                         >
-                                                            <FormControl>
+                                                            <FormControl className="w-full">
                                                                 <SelectTrigger>
                                                                     <SelectValue placeholder={formfield.placeholder} />
                                                                 </SelectTrigger>
@@ -256,12 +288,56 @@ export default function FormSectionComponent(data: FormSection) {
                                                 )}
                                             />
                                         );
+                                    case "date":
+                                        return (
+                                            <FormField
+                                                key={formfield._key}
+                                                control={form.control}
+                                                name="dob"
+                                                render={({ field }) => (
+                                                    <FormItem className="flex flex-col">
+                                                        <FormLabel>Date of birth</FormLabel>
+                                                        <Popover>
+                                                            <PopoverTrigger asChild>
+                                                                <FormControl>
+                                                                    <Button
+                                                                        variant={"outline"}
+                                                                        className={cn(
+                                                                            "w-full pl-3 text-left font-normal",
+                                                                            !field.value && "text-muted-foreground"
+                                                                        )}
+                                                                    >
+                                                                        {field.value ? (
+                                                                            format(field.value, "PPP")
+                                                                        ) : (
+                                                                            <span>Pick a date</span>
+                                                                        )}
+                                                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                                    </Button>
+                                                                </FormControl>
+                                                            </PopoverTrigger>
+                                                            <PopoverContent className="w-full p-0" align="start">
+                                                                <Calendar
+                                                                    mode="single"
+                                                                    selected={field.value}
+                                                                    onSelect={field.onChange}
+                                                                    disabled={(date) => date < new Date("1900-01-01")}
+                                                                    initialFocus
+                                                                />
+                                                            </PopoverContent>
+                                                        </Popover>
+
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        );
                                     default:
                                         return null;
                                 }
                             })}
                             <div className="pt-2">
-                                <Button type="submit" className="w-full md:w-auto">
+                                <Button type="submit" className="w-full py-6 text-lg">
                                     {isLoading ? "Submitting..." : data.submit}
                                 </Button>
                             </div>

@@ -27,6 +27,9 @@ export const formField = defineType({
             options: {
                 list: [
                     { title: "Text", value: "text" },
+                    { title: "Number", value: "number" },
+                    { title: "Date", value: "date" },
+                    { title: "Password", value: "password" },
                     { title: "Email", value: "email" },
                     { title: "Phone", value: "phone" },
                     { title: "Textarea", value: "textarea" },

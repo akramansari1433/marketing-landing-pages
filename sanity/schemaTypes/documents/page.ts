@@ -16,6 +16,7 @@ export const page = defineType({
                 { type: "howItWorksSection" },
                 { type: "testimonialsSection" },
                 { type: "formSection" },
+                { type: "heroWithFormSection" },
             ],
         },
     ],

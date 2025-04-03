@@ -9,7 +9,8 @@ import { howItWorksSection } from "./sections/howItWorksSection";
 import { testimonialsSection } from "./sections/testimonialsSection";
 import formSection from "./sections/formSection";
 import { formField } from "./objects/formField";
+import { heroWithFormSection } from "./sections/heroWithFormSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-    types: [page, heroSection, howItWorksSection, testimonialsSection, formSection, formField],
+    types: [page, heroSection, howItWorksSection, testimonialsSection, formSection, heroWithFormSection, formField],
 };

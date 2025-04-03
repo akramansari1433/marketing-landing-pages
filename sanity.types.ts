@@ -73,9 +73,31 @@ export type FormField = {
   label?: string;
   placeholder?: string;
   name?: string;
-  type?: "text" | "email" | "phone" | "textarea" | "select" | "radio" | "checkbox";
+  type?: "text" | "number" | "date" | "password" | "email" | "phone" | "textarea" | "select" | "radio" | "checkbox";
   options?: Array<string>;
   required?: boolean;
+};
+
+export type HeroWithFormSection = {
+  _type: "heroWithFormSection";
+  backgroundType?: "image" | "color";
+  backgroundImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  backgroundColor?: Color;
+  overlay?: boolean;
+  title?: string;
+  subtitle?: string;
+  form?: FormSection;
 };
 
 export type FormSection = {
@@ -168,7 +190,9 @@ export type Page = {
     _key: string;
   } & TestimonialsSection | {
     _key: string;
-  } & FormSection>;
+  } & FormSection | {
+    _key: string;
+  } & HeroWithFormSection>;
 };
 
 export type SanityImageCrop = {
@@ -267,7 +291,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FormField | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FormField | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/page.tsx
 // Variable: dataQuery
@@ -279,6 +303,8 @@ export type DataQueryResult = {
   } & FormSection | {
     _key: string;
   } & HeroSection | {
+    _key: string;
+  } & HeroWithFormSection | {
     _key: string;
   } & HowItWorksSection | {
     _key: string;
