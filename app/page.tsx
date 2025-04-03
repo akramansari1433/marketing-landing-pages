@@ -6,7 +6,7 @@ import { defineQuery } from "next-sanity";
 // Extend this mapping as you add more sections.
 const sectionComponents: Record<string, React.ComponentType<any>> = {
     heroSection: dynamic(() => import("@/components/hero-section")),
-    featuresSection: dynamic(() => import("@/components/features-section")),
+    howItWorksSection: dynamic(() => import("@/components/how-it-works-section")),
     testimonialsSection: dynamic(() => import("@/components/testimonials-section")),
     formSection: dynamic(() => import("@/components/form-section")),
 };

@@ -1,8 +1,8 @@
 import { defineType } from "sanity";
 
-export const featuresSection = defineType({
-    name: "featuresSection",
-    title: "Features Section",
+export const howItWorksSection = defineType({
+    name: "howItWorksSection",
+    title: "How It Works",
     type: "object",
     fields: [
         {
@@ -23,8 +23,8 @@ export const featuresSection = defineType({
             validation: (Rule) => Rule.required(),
         },
         {
-            name: "features",
-            title: "Features",
+            name: "steps",
+            title: "Steps",
             type: "array",
             of: [
                 {

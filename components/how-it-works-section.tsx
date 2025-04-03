@@ -1,8 +1,13 @@
-import { internalGroqTypeReferenceTo, SanityImageCrop, SanityImageHotspot, type FeaturesSection } from "@/sanity.types";
+import {
+    internalGroqTypeReferenceTo,
+    SanityImageCrop,
+    SanityImageHotspot,
+    type HowItWorksSection,
+} from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
-interface Feature {
+interface Step {
     icon?: {
         asset?: {
             _ref: string;
@@ -21,12 +26,12 @@ interface Feature {
     _key: string;
 }
 
-export default function FeaturesSection({
+export default function HowItWorksSection({
     sectionTitle,
     sectionDescription,
-    features = [],
+    steps = [],
     backgroundColor,
-}: FeaturesSection) {
+}: HowItWorksSection) {
     return (
         <section
             className="w-full py-12 md:py-24 lg:py-32 bg-background"
@@ -42,8 +47,8 @@ export default function FeaturesSection({
 
                 {/* Features Grid */}
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {features.map((feature, index) => (
-                        <FeatureCard key={index} feature={feature} />
+                    {steps.map((step, index) => (
+                        <StepCard key={index} step={step} />
                     ))}
                 </div>
             </div>
@@ -51,18 +56,13 @@ export default function FeaturesSection({
     );
 }
 
-function FeatureCard({ feature }: { feature: Feature }) {
+function StepCard({ step }: { step: Step }) {
     return (
         <div className="flex flex-col items-center space-y-4 rounded-lg border p-6 text-center shadow-sm transition-all hover:shadow-md">
             {/* Icon */}
             <div className="relative h-16 w-16 mb-2">
-                {feature.icon ? (
-                    <Image
-                        src={urlFor(feature.icon).url() || "/placeholder.svg"}
-                        alt=""
-                        fill
-                        className="object-contain"
-                    />
+                {step.icon ? (
+                    <Image src={urlFor(step.icon).url() || "/placeholder.svg"} alt="" fill className="object-contain" />
                 ) : (
                     <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center">
                         <span className="text-muted-foreground">Icon</span>
@@ -71,10 +71,10 @@ function FeatureCard({ feature }: { feature: Feature }) {
             </div>
 
             {/* Title */}
-            <h3 className="text-xl font-bold">{feature.title}</h3>
+            <h3 className="text-xl font-bold">{step.title}</h3>
 
             {/* Description */}
-            <p className="text-muted-foreground">{feature.description}</p>
+            <p className="text-muted-foreground">{step.description}</p>
         </div>
     );
 }

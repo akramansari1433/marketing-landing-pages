@@ -105,12 +105,12 @@ export type TestimonialsSection = {
   }>;
 };
 
-export type FeaturesSection = {
-  _type: "featuresSection";
+export type HowItWorksSection = {
+  _type: "howItWorksSection";
   backgroundColor?: Color;
   sectionTitle?: string;
   sectionDescription?: string;
-  features?: Array<{
+  steps?: Array<{
     icon?: {
       asset?: {
         _ref: string;
@@ -164,7 +164,7 @@ export type Page = {
     _key: string;
   } & HeroSection | {
     _key: string;
-  } & FeaturesSection | {
+  } & HowItWorksSection | {
     _key: string;
   } & TestimonialsSection | {
     _key: string;
@@ -267,7 +267,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FormField | FormSection | TestimonialsSection | FeaturesSection | HeroSection | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FormField | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/page.tsx
 // Variable: dataQuery
@@ -276,11 +276,11 @@ export type DataQueryResult = {
   title: string | null;
   content: Array<{
     _key: string;
-  } & FeaturesSection | {
-    _key: string;
   } & FormSection | {
     _key: string;
   } & HeroSection | {
+    _key: string;
+  } & HowItWorksSection | {
     _key: string;
   } & TestimonialsSection> | null;
 } | null;

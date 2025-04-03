@@ -13,7 +13,7 @@ export const page = defineType({
             title: "Content",
             of: [
                 { type: "heroSection" },
-                { type: "featuresSection" },
+                { type: "howItWorksSection" },
                 { type: "testimonialsSection" },
                 { type: "formSection" },
             ],

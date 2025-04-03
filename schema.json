@@ -587,7 +587,7 @@
     }
   },
   {
-    "name": "featuresSection",
+    "name": "howItWorksSection",
     "type": "type",
     "value": {
       "type": "object",
@@ -596,7 +596,7 @@
           "type": "objectAttribute",
           "value": {
             "type": "string",
-            "value": "featuresSection"
+            "value": "howItWorksSection"
           }
         },
         "backgroundColor": {
@@ -621,7 +621,7 @@
           },
           "optional": true
         },
-        "features": {
+        "steps": {
           "type": "objectAttribute",
           "value": {
             "type": "array",
@@ -962,7 +962,7 @@
                 },
                 "rest": {
                   "type": "inline",
-                  "name": "featuresSection"
+                  "name": "howItWorksSection"
                 }
               },
               {
