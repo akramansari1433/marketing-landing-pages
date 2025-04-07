@@ -12,6 +12,8 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
     formSection: dynamic(() => import("@/components/form-section")),
 };
 
+export const revalidate = 60;
+
 export default async function Home() {
     const dataQuery = defineQuery(
         `*[_type == "page" && slug.current == "/"][0] {
