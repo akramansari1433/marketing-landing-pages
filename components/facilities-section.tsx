@@ -37,12 +37,12 @@ export default function FacilitiesSection({ sectionTitle, facilities, packagesTi
                         <AccordionContent>
                             <div className="space-y-4 py-2">
                                 <Tabs className="w-full" defaultValue={packages?.[0]?.name}>
-                                    <TabsList className="grid grid-cols-3 gap-5 mb-4">
+                                    <TabsList className="grid grid-cols-3 gap-5 md:gap-10 mb-4">
                                         {packages?.map((pkg: any) => (
                                             <TabsTrigger
                                                 key={pkg._key}
                                                 value={pkg.name}
-                                                className="text-center font-bold"
+                                                className="text-center px-2 md:px-4 font-bold"
                                             >
                                                 {pkg.name}
                                             </TabsTrigger>
@@ -53,7 +53,9 @@ export default function FacilitiesSection({ sectionTitle, facilities, packagesTi
                                         <TabsContent key={pkg._key} value={pkg.name} className="space-y-4">
                                             <ul className="list-disc pl-5 space-y-2">
                                                 {pkg.facilities?.map((facility: any) => (
-                                                    <li key={facility._id}>{facility.name}</li>
+                                                    <li key={facility._id} className="text-md font-semibold">
+                                                        {facility.name}
+                                                    </li>
                                                 ))}
                                             </ul>
                                         </TabsContent>
