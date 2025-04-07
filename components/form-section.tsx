@@ -14,7 +14,7 @@ import type { FormSection } from "@/sanity.types";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "./ui/calendar";
 
 const generateSchema = (fields: FormSection["fields"] = []) => {
@@ -33,6 +33,26 @@ const generateSchema = (fields: FormSection["fields"] = []) => {
                     });
                 }
                 schemaObject[field.name!] = fieldSchema;
+                break;
+            }
+            case "number": {
+                let fieldSchema = z.number();
+                if (field.required) {
+                    fieldSchema = fieldSchema.min(-Infinity, {
+                        message: `${fieldLabel} is required`,
+                    });
+                }
+                schemaObject[field.name!] = fieldSchema;
+                break;
+            }
+            case "date": {
+                let fieldSchema = z.date();
+                if (field.required) {
+                    fieldSchema = fieldSchema.min(new Date("1900-01-01"), {
+                        message: `${fieldLabel} is required`,
+                    });
+                }
+                schemaObject[field.name!] = fieldSchema.nullable();
                 break;
             }
             case "email": {
@@ -93,20 +113,24 @@ export default function FormSectionComponent(data: FormSection) {
                     acc[field.name!] = "";
                 }
                 if (field.type === "number") {
-                    acc[field.name!] = "0";
+                    acc[field.name!] = 0;
+                }
+                if (field.type === "date") {
+                    acc[field.name!] = undefined;
                 }
                 return acc;
             },
-            {} as Record<string, string>
+            {} as Record<string, any>
         ),
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log("🚀 ~ onSubmit ~ values:", values);
         const response = await fetch(data.submissionEndpoint!, {
             method: "POST",
             body: JSON.stringify(values),
         });
-        form.reset();
+        // form.reset();
         toast.success("Form submitted successfully");
         console.log({ response });
     }
@@ -160,6 +184,7 @@ export default function FormSectionComponent(data: FormSection) {
                                                                 type="number"
                                                                 placeholder={formfield.placeholder}
                                                                 {...field}
+                                                                onChange={(e) => field.onChange(Number(e.target.value))}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -184,7 +209,6 @@ export default function FormSectionComponent(data: FormSection) {
                                                 )}
                                             />
                                         );
-
                                     case "phone":
                                         return (
                                             <FormField
@@ -293,7 +317,7 @@ export default function FormSectionComponent(data: FormSection) {
                                             <FormField
                                                 key={formfield._key}
                                                 control={form.control}
-                                                name="dob"
+                                                name={formfield.name as never}
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Date of birth</FormLabel>
