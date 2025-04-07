@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 import { client } from "@/sanity/lib/client";
-import { defineQuery, groq } from "next-sanity";
+import { defineQuery } from "next-sanity";
 import Header from "@/components/header";
+import { notFound } from "next/navigation";
 
 // Dynamically import components for each section type.
 // Extend this mapping as you add more sections.
@@ -15,9 +16,11 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
 
 export const revalidate = 60;
 
-export default async function Home() {
-    const dataQuery = defineQuery(
-        `*[_type == "page" && slug.current == "/"][0] {
+export default async function Home({ params }: { params: { slug: string } }) {
+    const { slug } = await params;
+
+    const pageQuery = defineQuery(
+        `*[_type == "page" && slug.current == $slug][0] {
             title,
             header,
             content[] {
@@ -40,7 +43,10 @@ export default async function Home() {
             }   
         }`
     );
-    const data = await client.fetch(dataQuery);
+    const data = await client.fetch(pageQuery, { slug: `/${slug}` });
+    if (!data) {
+        notFound();
+    }
 
     return (
         <>
