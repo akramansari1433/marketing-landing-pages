@@ -5,8 +5,26 @@ export const page = defineType({
     type: "document",
     title: "Page",
     fields: [
-        { name: "title", type: "string", title: "Title" },
-        { name: "slug", type: "slug", title: "Slug", options: { source: "title" } },
+        {
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (Rule) => Rule.required(),
+        },
+        {
+            name: "slug",
+            title: "Slug",
+            type: "slug",
+            options: {
+                source: "title",
+            },
+            validation: (Rule) => Rule.required(),
+        },
+        {
+            name: "header",
+            title: "Header",
+            type: "header",
+        },
         {
             name: "content",
             type: "array",

@@ -68,16 +68,6 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type FormField = {
-  _type: "formField";
-  label?: string;
-  placeholder?: string;
-  name?: string;
-  type?: "text" | "number" | "date" | "password" | "email" | "phone" | "textarea" | "select" | "radio" | "checkbox";
-  options?: Array<string>;
-  required?: boolean;
-};
-
 export type HeroWithFormSection = {
   _type: "heroWithFormSection";
   backgroundType?: "image" | "color";
@@ -174,6 +164,23 @@ export type HeroSection = {
   overlay?: boolean;
 };
 
+export type FormField = {
+  _type: "formField";
+  label?: string;
+  placeholder?: string;
+  name?: string;
+  type?: "text" | "number" | "date" | "password" | "email" | "phone" | "textarea" | "select" | "radio" | "checkbox";
+  options?: Array<string>;
+  required?: boolean;
+};
+
+export type NavigationItem = {
+  _type: "navigationItem";
+  label?: string;
+  link?: string;
+  isExternal?: boolean;
+};
+
 export type Page = {
   _id: string;
   _type: "page";
@@ -182,6 +189,7 @@ export type Page = {
   _rev: string;
   title?: string;
   slug?: Slug;
+  header?: Header;
   content?: Array<{
     _key: string;
   } & HeroSection | {
@@ -252,6 +260,30 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type Header = {
+  _type: "header";
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  navigationItems?: Array<{
+    _key: string;
+  } & NavigationItem>;
+  ctaButton?: {
+    label?: string;
+    link?: string;
+  };
+};
+
 export type Slug = {
   _type: "slug";
   current?: string;
@@ -291,13 +323,14 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FormField | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/page.tsx
 // Variable: dataQuery
-// Query: *[_type == "page" && slug.current == "/"][0] {      title,      content,    }
+// Query: *[_type == "page" && slug.current == "/"][0] {            title,            header,            content,        }
 export type DataQueryResult = {
   title: string | null;
+  header: Header | null;
   content: Array<{
     _key: string;
   } & FormSection | {
@@ -315,6 +348,6 @@ export type DataQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"page\" && slug.current == \"/\"][0] {\n      title,\n      content,\n    }": DataQueryResult;
+    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            content,\n        }": DataQueryResult;
   }
 }

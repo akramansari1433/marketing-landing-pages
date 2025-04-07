@@ -1,6 +1,6 @@
 import { defineType } from "sanity";
 
-export default defineType({
+export const formSection = defineType({
     name: "formSection",
     title: "Form Section",
     type: "object",
