@@ -28,51 +28,40 @@ export default function VenueCategoriesSection({ sectionTitle, venueCategories }
                             <h3 className="text-lg font-semibold">{category.name}</h3>
                         </div>
 
-                        <Accordion type="single" collapsible className="w-full">
-                            <AccordionItem value="details">
-                                <AccordionTrigger className="px-4 py-2 text-sm font-medium">
-                                    View Details
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    <div className="space-y-4 p-4">
-                                        <div className="relative h-48 w-full overflow-hidden rounded-md">
-                                            <Image
-                                                src={urlFor(category.image).url() || ""}
-                                                alt={category.name}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        </div>
+                        <div className="space-y-4 p-4">
+                            <div className="relative h-48 w-full overflow-hidden rounded-md">
+                                <Image
+                                    src={urlFor(category.image).url() || ""}
+                                    alt={category.name}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
 
-                                        <div className="space-y-2">
-                                            <p className="text-sm text-gray-600">{category.description}</p>
+                            <div className="space-y-2">
+                                <p className="text-sm text-gray-600">{category.description}</p>
 
-                                            <div className="flex items-center gap-2">
-                                                <Users className="h-4 w-4 text-gray-500" />
-                                                <span className="text-sm font-medium">
-                                                    Capacity: {category.capacity}
-                                                </span>
-                                            </div>
+                                <div className="flex items-center gap-2">
+                                    <Users className="h-4 w-4 text-gray-500" />
+                                    <span className="text-sm font-medium">Capacity: {category.capacity}</span>
+                                </div>
 
-                                            <div className="flex flex-wrap gap-2">
-                                                {category.facilities.map((facility: any, index: number) => (
-                                                    <span
-                                                        key={index}
-                                                        className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800"
-                                                    >
-                                                        {facility.name}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
+                                <div className="flex flex-wrap gap-2">
+                                    {category.facilities.map((facility: any, index: number) => (
+                                        <span
+                                            key={index}
+                                            className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800"
+                                        >
+                                            {facility.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
 
-                                        <Button size="lg" className="">
-                                            Explore Venues
-                                        </Button>
-                                    </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
+                            <Button size="lg" className="">
+                                Explore Venues
+                            </Button>
+                        </div>
                     </Card>
                 ))}
             </div>
