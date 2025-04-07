@@ -23,6 +23,13 @@ export const testimonialsSection = defineType({
             validation: (Rule) => Rule.required(),
         },
         {
+            name: "rating",
+            title: "Rating",
+            type: "number",
+            description: "Rating from 1 to 5",
+            validation: (Rule) => Rule.min(1).max(5).precision(1),
+        },
+        {
             name: "testimonials",
             title: "Testimonials",
             type: "array",

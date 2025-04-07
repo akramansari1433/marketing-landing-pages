@@ -68,6 +68,42 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type FacilitiesSection = {
+  _type: "facilitiesSection";
+  sectionTitle?: string;
+  facilities?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "facility";
+  }>;
+  packagesTitle?: string;
+  packages?: Array<{
+    name?: string;
+    facilities?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "facility";
+    }>;
+    _key: string;
+  }>;
+};
+
+export type VenueCategorySection = {
+  _type: "venueCategorySection";
+  sectionTitle?: string;
+  venueCategories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "venueCategory";
+  }>;
+};
+
 export type HeroWithFormSection = {
   _type: "heroWithFormSection";
   backgroundType?: "image" | "color";
@@ -107,6 +143,7 @@ export type TestimonialsSection = {
   backgroundColor?: Color;
   sectionTitle?: string;
   sectionDescription?: string;
+  rating?: number;
   testimonials?: Array<{
     quote?: string;
     author?: string;
@@ -140,6 +177,8 @@ export type HowItWorksSection = {
     _type: "feature";
     _key: string;
   }>;
+  chatButtonText?: string;
+  chatButtonLink?: string;
 };
 
 export type HeroSection = {
@@ -182,6 +221,71 @@ export type NavigationItem = {
   isExternal?: boolean;
 };
 
+export type VenueCategory = {
+  _id: string;
+  _type: "venueCategory";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  icon?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  name?: string;
+  description?: string;
+  capacity?: string;
+  facilities?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "facility";
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  buttonText?: string;
+  buttonLink?: string;
+};
+
+export type Facility = {
+  _id: string;
+  _type: "facility";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  icon?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  name?: string;
+};
+
 export type Page = {
   _id: string;
   _type: "page";
@@ -193,15 +297,15 @@ export type Page = {
   header?: Header;
   content?: Array<{
     _key: string;
-  } & HeroSection | {
+  } & HeroWithFormSection | {
+    _key: string;
+  } & VenueCategorySection | {
     _key: string;
   } & HowItWorksSection | {
     _key: string;
   } & TestimonialsSection | {
     _key: string;
-  } & FormSection | {
-    _key: string;
-  } & HeroWithFormSection>;
+  } & FacilitiesSection>;
 };
 
 export type SanityImageCrop = {
@@ -324,31 +428,204 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | Facility | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/page.tsx
 // Variable: dataQuery
-// Query: *[_type == "page" && slug.current == "/"][0] {            title,            header,            content,        }
+// Query: *[_type == "page" && slug.current == "/"][0] {            title,            header,            content[] {                ...,                venueCategories[]-> {                    ...,                    facilities[]-> {                        ...,                    }                },                facilities[]-> {                    ...,                 },                packages[] {                    ...,                    facilities[]-> {                    ...,                    },                }            }           }
 export type DataQueryResult = {
   title: string | null;
   header: Header | null;
   content: Array<{
     _key: string;
-  } & FormSection | {
+    _type: "facilitiesSection";
+    sectionTitle?: string;
+    facilities: Array<{
+      _id: string;
+      _type: "facility";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      icon?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      name?: string;
+    }> | null;
+    packagesTitle?: string;
+    packages: Array<{
+      name?: string;
+      facilities: Array<{
+        _id: string;
+        _type: "facility";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        icon?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        name?: string;
+      }> | null;
+      _key: string;
+    }> | null;
+    venueCategories: null;
+  } | {
     _key: string;
-  } & HeroSection | {
+    _type: "heroWithFormSection";
+    backgroundType?: "color" | "image";
+    backgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    backgroundColor?: Color;
+    overlay?: boolean;
+    title?: string;
+    subtitle?: string;
+    form?: FormSection;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
+  } | {
     _key: string;
-  } & HeroWithFormSection | {
+    _type: "howItWorksSection";
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    sectionDescription?: string;
+    steps?: Array<{
+      icon?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      title?: string;
+      description?: string;
+      _type: "feature";
+      _key: string;
+    }>;
+    chatButtonText?: string;
+    chatButtonLink?: string;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
+  } | {
     _key: string;
-  } & HowItWorksSection | {
+    _type: "testimonialsSection";
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    sectionDescription?: string;
+    rating?: number;
+    testimonials?: Array<{
+      quote?: string;
+      author?: string;
+      role?: string;
+      company?: string;
+      _type: "testimonial";
+      _key: string;
+    }>;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
+  } | {
     _key: string;
-  } & TestimonialsSection> | null;
+    _type: "venueCategorySection";
+    sectionTitle?: string;
+    venueCategories: Array<{
+      _id: string;
+      _type: "venueCategory";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      icon?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      name?: string;
+      description?: string;
+      capacity?: string;
+      facilities: Array<{
+        _id: string;
+        _type: "facility";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        icon?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        name?: string;
+      }> | null;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      buttonText?: string;
+      buttonLink?: string;
+    }> | null;
+    facilities: null;
+    packages: null;
+  }> | null;
 } | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            content,\n        }": DataQueryResult;
+    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            content[] {\n                ...,\n                venueCategories[]-> {\n                    ...,\n                    facilities[]-> {\n                        ...,\n                    }\n                },\n                facilities[]-> {\n                    ..., \n                },\n                packages[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                }\n            }   \n        }": DataQueryResult;
   }
 }

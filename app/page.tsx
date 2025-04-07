@@ -6,11 +6,11 @@ import Header from "@/components/header";
 // Dynamically import components for each section type.
 // Extend this mapping as you add more sections.
 const sectionComponents: Record<string, React.ComponentType<any>> = {
-    heroSection: dynamic(() => import("@/components/hero-section")),
     heroWithFormSection: dynamic(() => import("@/components/hero-with-form-section")),
+    venueCategorySection: dynamic(() => import("@/components/venue-categories-section")),
+    facilitiesSection: dynamic(() => import("@/components/facilities-section")),
     howItWorksSection: dynamic(() => import("@/components/how-it-works-section")),
     testimonialsSection: dynamic(() => import("@/components/testimonials-section")),
-    formSection: dynamic(() => import("@/components/form-section")),
 };
 
 export const revalidate = 60;
@@ -20,7 +20,24 @@ export default async function Home() {
         `*[_type == "page" && slug.current == "/"][0] {
             title,
             header,
-            content,
+            content[] {
+                ...,
+                venueCategories[]-> {
+                    ...,
+                    facilities[]-> {
+                        ...,
+                    }
+                },
+                facilities[]-> {
+                    ..., 
+                },
+                packages[] {
+                    ...,
+                    facilities[]-> {
+                    ...,
+                    },
+                }
+            }   
         }`
     );
     const data = await client.fetch(dataQuery);

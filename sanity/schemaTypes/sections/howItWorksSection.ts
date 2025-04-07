@@ -57,5 +57,17 @@ export const howItWorksSection = defineType({
                 },
             ],
         },
+        {
+            name: "chatButtonText",
+            title: "Chat Button Text",
+            type: "string",
+            initialValue: "Need help? Chat now",
+        },
+        {
+            name: "chatButtonLink",
+            title: "Chat Button Link",
+            type: "url",
+            description: "WhatsApp or chat link",
+        },
     ],
 });
