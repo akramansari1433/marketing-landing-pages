@@ -342,7 +342,7 @@ export default function FormSectionComponent(data: FormSection) {
                                                 name={formfield.name as never}
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
-                                                        <FormLabel>Date of birth</FormLabel>
+                                                        <FormLabel>{formfield.label}</FormLabel>
                                                         <Popover>
                                                             <PopoverTrigger asChild>
                                                                 <FormControl>
