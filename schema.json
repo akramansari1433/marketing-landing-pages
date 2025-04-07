@@ -971,6 +971,14 @@
               },
               {
                 "type": "string",
+                "value": "email"
+              },
+              {
+                "type": "string",
+                "value": "phone"
+              },
+              {
+                "type": "string",
                 "value": "number"
               },
               {
@@ -979,15 +987,7 @@
               },
               {
                 "type": "string",
-                "value": "password"
-              },
-              {
-                "type": "string",
-                "value": "email"
-              },
-              {
-                "type": "string",
-                "value": "phone"
+                "value": "time"
               },
               {
                 "type": "string",
@@ -1004,8 +1004,19 @@
               {
                 "type": "string",
                 "value": "checkbox"
+              },
+              {
+                "type": "string",
+                "value": "termAndConditions"
               }
             ]
+          },
+          "optional": true
+        },
+        "termsAndConditionsUrl": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
           },
           "optional": true
         },

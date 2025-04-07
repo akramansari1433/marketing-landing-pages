@@ -27,17 +27,25 @@ export const formField = defineType({
             options: {
                 list: [
                     { title: "Text", value: "text" },
-                    { title: "Number", value: "number" },
-                    { title: "Date", value: "date" },
-                    { title: "Password", value: "password" },
                     { title: "Email", value: "email" },
                     { title: "Phone", value: "phone" },
+                    { title: "Number", value: "number" },
+                    { title: "Date", value: "date" },
+                    { title: "Time", value: "time" },
                     { title: "Textarea", value: "textarea" },
                     { title: "Select", value: "select" },
                     { title: "Radio", value: "radio" },
                     { title: "Checkbox", value: "checkbox" },
+                    { title: "Term and Conditions", value: "termAndConditions" },
                 ],
             },
+            validation: (Rule) => Rule.required(),
+        },
+        {
+            name: "termsAndConditionsUrl",
+            title: "Terms and Conditions URL",
+            type: "url",
+            hidden: ({ parent }: { parent: { type?: string } }) => parent?.type !== "termAndConditions",
         },
         {
             name: "options",

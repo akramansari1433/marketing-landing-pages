@@ -169,7 +169,8 @@ export type FormField = {
   label?: string;
   placeholder?: string;
   name?: string;
-  type?: "text" | "number" | "date" | "password" | "email" | "phone" | "textarea" | "select" | "radio" | "checkbox";
+  type?: "text" | "email" | "phone" | "number" | "date" | "time" | "textarea" | "select" | "radio" | "checkbox" | "termAndConditions";
+  termsAndConditionsUrl?: string;
   options?: Array<string>;
   required?: boolean;
 };

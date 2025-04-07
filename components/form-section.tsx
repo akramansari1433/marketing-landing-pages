@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "./ui/calendar";
+import { TimePicker } from "./time-picker";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const generateSchema = (fields: FormSection["fields"] = []) => {
     const schemaObject: Record<string, any> = {};
@@ -55,6 +57,16 @@ const generateSchema = (fields: FormSection["fields"] = []) => {
                 schemaObject[field.name!] = fieldSchema.nullable();
                 break;
             }
+            case "time": {
+                let fieldSchema = z.string();
+                if (field.required) {
+                    fieldSchema = fieldSchema.min(1, {
+                        message: `${fieldLabel} is required`,
+                    });
+                }
+                schemaObject[field.name!] = fieldSchema;
+                break;
+            }
             case "email": {
                 let fieldSchema = z.string();
                 if (field.required) {
@@ -90,6 +102,13 @@ const generateSchema = (fields: FormSection["fields"] = []) => {
                 schemaObject[field.name!] = fieldSchema;
                 break;
             }
+            case "termAndConditions": {
+                let fieldSchema = z.boolean().refine((val) => val === true, {
+                    message: `You must accept the ${fieldLabel || "terms and conditions"}`,
+                });
+                schemaObject[field.name!] = fieldSchema;
+                break;
+            }
             default:
                 break;
         }
@@ -118,6 +137,9 @@ export default function FormSectionComponent(data: FormSection) {
                 if (field.type === "date") {
                     acc[field.name!] = undefined;
                 }
+                if (field.type === "time") {
+                    acc[field.name!] = "";
+                }
                 return acc;
             },
             {} as Record<string, any>
@@ -130,7 +152,7 @@ export default function FormSectionComponent(data: FormSection) {
             method: "POST",
             body: JSON.stringify(values),
         });
-        // form.reset();
+        form.reset();
         toast.success("Form submitted successfully");
         console.log({ response });
     }
@@ -351,6 +373,66 @@ export default function FormSectionComponent(data: FormSection) {
                                                             </PopoverContent>
                                                         </Popover>
 
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        );
+                                    case "time":
+                                        return (
+                                            <FormField
+                                                key={formfield._key}
+                                                control={form.control}
+                                                name={formfield.name as never}
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>{formfield.label}</FormLabel>
+                                                        <FormControl>
+                                                            <TimePicker
+                                                                value={field.value}
+                                                                onChange={field.onChange}
+                                                                placeholder={formfield.placeholder}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        );
+                                    case "termAndConditions":
+                                        return (
+                                            <FormField
+                                                key={formfield._key}
+                                                control={form.control}
+                                                name={formfield.name as never}
+                                                render={({ field }) => (
+                                                    <FormItem className="flex flex-col space-y-2">
+                                                        <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                                            <FormControl>
+                                                                <Checkbox
+                                                                    checked={field.value}
+                                                                    onCheckedChange={field.onChange}
+                                                                />
+                                                            </FormControl>
+                                                            <div className="space-y-1 leading-none">
+                                                                <FormLabel>
+                                                                    {formfield.termsAndConditionsUrl ? (
+                                                                        <span>
+                                                                            I agree to the{" "}
+                                                                            <a
+                                                                                href={formfield.termsAndConditionsUrl}
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer"
+                                                                            >
+                                                                                {formfield.label}
+                                                                            </a>
+                                                                        </span>
+                                                                    ) : (
+                                                                        formfield.label
+                                                                    )}
+                                                                </FormLabel>
+                                                            </div>
+                                                        </div>
                                                         <FormMessage />
                                                     </FormItem>
                                                 )}
