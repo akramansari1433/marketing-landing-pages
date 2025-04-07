@@ -7,9 +7,18 @@ import type { FacilitiesSection } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
-export default function FacilitiesSection({ sectionTitle, facilities, packagesTitle, packages }: FacilitiesSection) {
+export default function FacilitiesSection({
+    sectionTitle,
+    facilities,
+    packagesTitle,
+    packages,
+    backgroundColor,
+}: FacilitiesSection) {
     return (
-        <section className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background">
+        <section
+            className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background"
+            style={{ backgroundColor: backgroundColor?.hex }}
+        >
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
             </div>

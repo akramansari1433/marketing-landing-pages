@@ -8,7 +8,11 @@ import { urlFor } from "@/sanity/lib/image";
 import { ChevronLeft, ChevronRight, Users } from "lucide-react";
 import Image from "next/image";
 
-export default function VenueCategoriesSection({ sectionTitle, venueCategories }: VenueCategorySection) {
+export default function VenueCategoriesSection({
+    sectionTitle,
+    venueCategories,
+    backgroundColor,
+}: VenueCategorySection) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scrollLeft = () => {
@@ -30,7 +34,10 @@ export default function VenueCategoriesSection({ sectionTitle, venueCategories }
     };
 
     return (
-        <section className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background">
+        <section
+            className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background"
+            style={{ backgroundColor: backgroundColor?.hex }}
+        >
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
             </div>

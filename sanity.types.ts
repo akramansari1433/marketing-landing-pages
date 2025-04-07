@@ -70,6 +70,7 @@ export type Geopoint = {
 
 export type FacilitiesSection = {
   _type: "facilitiesSection";
+  backgroundColor?: Color;
   sectionTitle?: string;
   facilities?: Array<{
     _ref: string;
@@ -94,6 +95,7 @@ export type FacilitiesSection = {
 
 export type VenueCategorySection = {
   _type: "venueCategorySection";
+  backgroundColor?: Color;
   sectionTitle?: string;
   venueCategories?: Array<{
     _ref: string;
@@ -439,6 +441,7 @@ export type DataQueryResult = {
   content: Array<{
     _key: string;
     _type: "facilitiesSection";
+    backgroundColor?: Color;
     sectionTitle?: string;
     facilities: Array<{
       _id: string;
@@ -560,6 +563,7 @@ export type DataQueryResult = {
   } | {
     _key: string;
     _type: "venueCategorySection";
+    backgroundColor?: Color;
     sectionTitle?: string;
     venueCategories: Array<{
       _id: string;

@@ -6,6 +6,11 @@ export const venueCategorySection = defineType({
     type: "object",
     fields: [
         defineField({
+            name: "backgroundColor",
+            title: "Background Color",
+            type: "color",
+        }),
+        defineField({
             name: "sectionTitle",
             title: "Section Title",
             type: "string",

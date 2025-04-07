@@ -338,6 +338,14 @@
             "value": "facilitiesSection"
           }
         },
+        "backgroundColor": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "color"
+          },
+          "optional": true
+        },
         "sectionTitle": {
           "type": "objectAttribute",
           "value": {
@@ -485,6 +493,14 @@
             "type": "string",
             "value": "venueCategorySection"
           }
+        },
+        "backgroundColor": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "color"
+          },
+          "optional": true
         },
         "sectionTitle": {
           "type": "objectAttribute",

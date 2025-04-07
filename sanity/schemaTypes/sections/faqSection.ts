@@ -6,6 +6,11 @@ export const faqSection = defineType({
     type: "document",
     fields: [
         defineField({
+            name: "backgroundColor",
+            title: "Background Color",
+            type: "color",
+        }),
+        defineField({
             name: "question",
             title: "Question",
             type: "string",
