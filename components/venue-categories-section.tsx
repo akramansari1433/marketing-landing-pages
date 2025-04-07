@@ -59,7 +59,7 @@ export default function VenueCategoriesSection({ sectionTitle, venueCategories }
                             </div>
 
                             <Button size="lg" className="">
-                                Explore Venues
+                                {category.buttonText}
                             </Button>
                         </div>
                     </Card>
