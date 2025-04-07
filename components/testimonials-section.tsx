@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { type TestimonialsSection } from "@/sanity.types";
+import type { TestimonialsSection } from "@/sanity.types";
 
 interface Testimonial {
     quote?: string;
@@ -22,6 +22,7 @@ export default function TestimonialsSection({
     backgroundColor,
 }: TestimonialsSection) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const desktopScrollRef = useRef<HTMLDivElement>(null);
 
     const nextTestimonial = () => {
         setCurrentIndex((prevIndex) => (prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1));
@@ -31,62 +32,67 @@ export default function TestimonialsSection({
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1));
     };
 
+    const scrollLeft = () => {
+        if (desktopScrollRef.current) {
+            desktopScrollRef.current.scrollBy({
+                left: -300,
+                behavior: "smooth",
+            });
+        }
+    };
+
+    const scrollRight = () => {
+        if (desktopScrollRef.current) {
+            desktopScrollRef.current.scrollBy({
+                left: 300,
+                behavior: "smooth",
+            });
+        }
+    };
+
     return (
         <section className="py-16 px-4 md:px-6 lg:px-8" style={{ backgroundColor: backgroundColor?.hex }}>
-            <div className="container mx-auto max-w-6xl">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{sectionTitle}</h2>
-                    <p className="text-slate-600 max-w-2xl mx-auto">{sectionDescription}</p>
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{sectionTitle}</h2>
+                <p className="text-slate-600 max-w-2xl mx-auto">{sectionDescription}</p>
+            </div>
+
+            <div className="relative max-w-7xl mx-auto px-4 md:px-6">
+                {/* Navigation buttons */}
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
+                        onClick={scrollLeft}
+                        aria-label="Scroll left"
+                    >
+                        <ChevronLeft className="h-6 w-6" />
+                    </Button>
                 </div>
 
-                {/* Desktop view - Grid layout */}
-                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
+                        onClick={scrollRight}
+                        aria-label="Scroll right"
+                    >
+                        <ChevronRight className="h-6 w-6" />
+                    </Button>
+                </div>
+
+                {/* Scrollable container */}
+                <div
+                    ref={desktopScrollRef}
+                    className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide px-8"
+                >
                     {testimonials.map((testimonial, index) => (
-                        <TestimonialCard key={index} testimonial={testimonial} />
-                    ))}
-                </div>
-
-                {/* Mobile view - Carousel */}
-                <div className="md:hidden">
-                    <div className="relative">
-                        <div className="overflow-hidden">
-                            <div
-                                className="transition-transform duration-300 ease-in-out"
-                                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                            >
-                                <div className="flex">
-                                    {testimonials.map((testimonial, index) => (
-                                        <div key={index} className="w-full flex-shrink-0">
-                                            <TestimonialCard testimonial={testimonial} />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                        <div key={index} className="flex-none w-[300px] md:w-[350px] snap-center">
+                            <TestimonialCard testimonial={testimonial} />
                         </div>
-
-                        {testimonials.length > 1 && (
-                            <div className="flex justify-center mt-6 gap-2">
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    onClick={prevTestimonial}
-                                    className="rounded-full"
-                                >
-                                    <ChevronLeft className="h-4 w-4" />
-                                    <span className="sr-only">Previous testimonial</span>
-                                </Button>
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    onClick={nextTestimonial}
-                                    className="rounded-full"
-                                >
-                                    <ChevronRight className="h-4 w-4" />
-                                    <span className="sr-only">Next testimonial</span>
-                                </Button>
-                            </div>
-                        )}
-                    </div>
+                    ))}
                 </div>
             </div>
         </section>

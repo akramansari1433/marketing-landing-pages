@@ -9,11 +9,11 @@ import Image from "next/image";
 
 export default function FacilitiesSection({ sectionTitle, facilities, packagesTitle, packages }: FacilitiesSection) {
     return (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
+        <section className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background">
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
             </div>
-            <div className="space-y-8 px-4 md:px-8">
+            <div className="space-y-8">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                     {facilities?.map((facility: any) => (
                         <Card key={facility._id} className="border-0 shadow-sm hover:shadow-md transition-shadow">
@@ -30,41 +30,6 @@ export default function FacilitiesSection({ sectionTitle, facilities, packagesTi
                         </Card>
                     ))}
                 </div>
-
-                <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
-                    <AccordionItem value="included">
-                        <AccordionTrigger className="text-lg font-medium">{packagesTitle}</AccordionTrigger>
-                        <AccordionContent>
-                            <div className="space-y-4 py-2">
-                                <Tabs className="w-full" defaultValue={packages?.[0]?.name}>
-                                    <TabsList className="grid grid-cols-3 gap-5 md:gap-10 mb-4">
-                                        {packages?.map((pkg: any) => (
-                                            <TabsTrigger
-                                                key={pkg._key}
-                                                value={pkg.name}
-                                                className="text-center px-2 md:px-4 font-bold"
-                                            >
-                                                {pkg.name}
-                                            </TabsTrigger>
-                                        ))}
-                                    </TabsList>
-
-                                    {packages?.map((pkg: any) => (
-                                        <TabsContent key={pkg._key} value={pkg.name} className="space-y-4">
-                                            <ul className="list-disc pl-5 space-y-2">
-                                                {pkg.facilities?.map((facility: any) => (
-                                                    <li key={facility._id} className="text-md font-semibold">
-                                                        {facility.name}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </TabsContent>
-                                    ))}
-                                </Tabs>
-                            </div>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
             </div>
         </section>
     );
