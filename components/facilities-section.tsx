@@ -1,8 +1,5 @@
 "use client";
-
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { FacilitiesSection } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
@@ -25,12 +22,12 @@ export default function FacilitiesSection({
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
             </div>
             <div className="space-y-8">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 justify-center mx-auto max-w-7xl">
                     {facilities?.map((facility: any) => (
                         <Card key={facility._id} className="border-0 shadow-sm hover:shadow-md transition-shadow">
                             <CardContent className="flex flex-col items-center justify-center p-4 text-center h-full">
                                 <Image
-                                    src={urlFor(facility.icon).url()}
+                                    src={urlFor(facility.icon).url() || "/placeholder.svg"}
                                     alt={facility.name}
                                     width={50}
                                     height={50}
