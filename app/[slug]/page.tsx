@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { defineQuery } from "next-sanity";
 import Header from "@/components/header";
 import { notFound } from "next/navigation";
+import { PageProps } from "@/.next/types/app/layout";
 
 // Dynamically import components for each section type.
 // Extend this mapping as you add more sections.
@@ -16,7 +17,7 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
 
 export const revalidate = 60;
 
-export default async function Home({ params }: { params: { slug: string } }) {
+export default async function Home({ params }: PageProps) {
     const { slug } = await params;
 
     const pageQuery = defineQuery(
