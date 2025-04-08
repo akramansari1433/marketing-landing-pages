@@ -14,7 +14,6 @@ export default function VenueCategoriesSection({
     venueCategories,
     backgroundColor,
 }: VenueCategorySection) {
-    console.log("🚀 ~ venueCategories:", venueCategories);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scrollLeft = () => {

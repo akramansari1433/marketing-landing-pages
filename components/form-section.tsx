@@ -147,7 +147,6 @@ export default function FormSectionComponent(data: FormSection) {
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log("🚀 ~ onSubmit ~ values:", values);
         const response = await fetch(data.submissionEndpoint!, {
             method: "POST",
             body: JSON.stringify(values),
