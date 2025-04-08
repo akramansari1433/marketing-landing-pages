@@ -17,6 +17,17 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
 
 export const revalidate = 60;
 
+export async function generateStaticParams() {
+    const query = defineQuery(`*[_type == "page"]{
+        "slug": slug.current
+    }`);
+
+    const slugs: { slug: string }[] = await client.fetch(query);
+    return slugs.map((page) => ({
+        slug: page.slug.startsWith("/") ? page.slug.slice(1) : page.slug,
+    }));
+}
+
 export default async function Home({ params }: PageProps) {
     const { slug } = await params;
 
