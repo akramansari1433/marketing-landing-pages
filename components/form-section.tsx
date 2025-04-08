@@ -162,7 +162,7 @@ export default function FormSectionComponent(data: FormSection) {
     return (
         <section
             id={data._type}
-            className="py-8 px-4 rounded-xl md:px-4 lg:px-8"
+            className="py-4 px-4 rounded-xl lg:px-8 lg:py-8"
             style={{ backgroundColor: data.backgroundColor?.hex }}
         >
             <div className="container mx-auto max-w-3xl">
@@ -171,286 +171,281 @@ export default function FormSectionComponent(data: FormSection) {
                     <p className="text-slate-600 max-w-2xl mx-auto">{data.description}</p>
                 </div>
 
-                <div className="p-6 md:p-8">
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                            {data.fields?.map((formfield) => {
-                                switch (formfield.type) {
-                                    case "text":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <FormControl>
-                                                            <Input placeholder={formfield.placeholder} {...field} />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "number":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <FormControl>
-                                                            <Input
-                                                                type="number"
-                                                                placeholder={formfield.placeholder}
-                                                                {...field}
-                                                                onChange={(e) => field.onChange(Number(e.target.value))}
-                                                            />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "email":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <FormControl>
-                                                            <Input placeholder={formfield.label} {...field} />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "phone":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <FormControl>
-                                                            <Input placeholder={formfield.label} {...field} />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "textarea":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <FormControl>
-                                                            <Textarea placeholder={formfield.label} {...field} />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "radio":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem className="space-y-3">
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <FormControl>
-                                                            <RadioGroup
-                                                                onValueChange={field.onChange}
-                                                                defaultValue={field.value}
-                                                                className="flex flex-col space-y-1"
-                                                            >
-                                                                {formfield.options?.map((option) => (
-                                                                    <FormItem
-                                                                        key={option.toLocaleLowerCase()}
-                                                                        className="flex items-center space-x-3 space-y-0"
-                                                                    >
-                                                                        <FormControl>
-                                                                            <RadioGroupItem value={option} />
-                                                                        </FormControl>
-                                                                        <FormLabel className="font-normal">
-                                                                            {option}
-                                                                        </FormLabel>
-                                                                    </FormItem>
-                                                                ))}
-                                                            </RadioGroup>
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "select":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <Select
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        {data.fields?.map((formfield) => {
+                            switch (formfield.type) {
+                                case "text":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder={formfield.placeholder} {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "number":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            placeholder={formfield.placeholder}
+                                                            {...field}
+                                                            onChange={(e) => field.onChange(Number(e.target.value))}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "email":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder={formfield.label} {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "phone":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder={formfield.label} {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "textarea":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormControl>
+                                                        <Textarea placeholder={formfield.label} {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "radio":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem className="space-y-3">
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormControl>
+                                                        <RadioGroup
                                                             onValueChange={field.onChange}
                                                             defaultValue={field.value}
+                                                            className="flex flex-col space-y-1"
                                                         >
-                                                            <FormControl className="w-full">
-                                                                <SelectTrigger>
-                                                                    <SelectValue placeholder={formfield.placeholder} />
-                                                                </SelectTrigger>
-                                                            </FormControl>
-                                                            <SelectContent>
-                                                                {formfield.options?.map((option) => (
-                                                                    <SelectItem
-                                                                        key={option.toLocaleLowerCase()}
-                                                                        value={option}
-                                                                    >
+                                                            {formfield.options?.map((option) => (
+                                                                <FormItem
+                                                                    key={option.toLocaleLowerCase()}
+                                                                    className="flex items-center space-x-3 space-y-0"
+                                                                >
+                                                                    <FormControl>
+                                                                        <RadioGroupItem value={option} />
+                                                                    </FormControl>
+                                                                    <FormLabel className="font-normal">
                                                                         {option}
-                                                                    </SelectItem>
-                                                                ))}
-                                                            </SelectContent>
-                                                        </Select>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "date":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem className="flex flex-col">
-                                                        <FormLabel>{formfield.label}</FormLabel>
-                                                        <Popover>
-                                                            <PopoverTrigger asChild>
-                                                                <FormControl>
-                                                                    <Button
-                                                                        variant={"outline"}
-                                                                        className={cn(
-                                                                            "w-full pl-3 text-left font-normal",
-                                                                            !field.value && "text-muted-foreground"
-                                                                        )}
-                                                                    >
-                                                                        {field.value ? (
-                                                                            format(field.value, "PPP")
-                                                                        ) : (
-                                                                            <span>Pick a date</span>
-                                                                        )}
-                                                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                                                    </Button>
-                                                                </FormControl>
-                                                            </PopoverTrigger>
-                                                            <PopoverContent className="w-full p-0" align="start">
-                                                                <Calendar
-                                                                    mode="single"
-                                                                    selected={field.value}
-                                                                    onSelect={field.onChange}
-                                                                    disabled={(date) => date < new Date("1900-01-01")}
-                                                                    initialFocus
-                                                                />
-                                                            </PopoverContent>
-                                                        </Popover>
+                                                                    </FormLabel>
+                                                                </FormItem>
+                                                            ))}
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "select":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                        <FormControl className="w-full">
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder={formfield.placeholder} />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {formfield.options?.map((option) => (
+                                                                <SelectItem
+                                                                    key={option.toLocaleLowerCase()}
+                                                                    value={option}
+                                                                >
+                                                                    {option}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "date":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem className="flex flex-col">
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <Popover>
+                                                        <PopoverTrigger asChild>
+                                                            <FormControl>
+                                                                <Button
+                                                                    variant={"outline"}
+                                                                    className={cn(
+                                                                        "w-full pl-3 text-left font-normal",
+                                                                        !field.value && "text-muted-foreground"
+                                                                    )}
+                                                                >
+                                                                    {field.value ? (
+                                                                        format(field.value, "PPP")
+                                                                    ) : (
+                                                                        <span>Pick a date</span>
+                                                                    )}
+                                                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                                </Button>
+                                                            </FormControl>
+                                                        </PopoverTrigger>
+                                                        <PopoverContent className="w-full p-0" align="start">
+                                                            <Calendar
+                                                                mode="single"
+                                                                selected={field.value}
+                                                                onSelect={field.onChange}
+                                                                disabled={(date) => date < new Date("1900-01-01")}
+                                                                initialFocus
+                                                            />
+                                                        </PopoverContent>
+                                                    </Popover>
 
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "time":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "time":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>{formfield.label}</FormLabel>
+                                                    <FormControl>
+                                                        <TimePicker
+                                                            value={field.value}
+                                                            onChange={field.onChange}
+                                                            placeholder={formfield.placeholder}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                case "termAndConditions":
+                                    return (
+                                        <FormField
+                                            key={formfield._key}
+                                            control={form.control}
+                                            name={formfield.name as never}
+                                            render={({ field }) => (
+                                                <FormItem className="flex flex-col space-y-2">
+                                                    <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                                                         <FormControl>
-                                                            <TimePicker
-                                                                value={field.value}
-                                                                onChange={field.onChange}
-                                                                placeholder={formfield.placeholder}
+                                                            <Checkbox
+                                                                checked={field.value}
+                                                                onCheckedChange={field.onChange}
                                                             />
                                                         </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    case "termAndConditions":
-                                        return (
-                                            <FormField
-                                                key={formfield._key}
-                                                control={form.control}
-                                                name={formfield.name as never}
-                                                render={({ field }) => (
-                                                    <FormItem className="flex flex-col space-y-2">
-                                                        <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                                                            <FormControl>
-                                                                <Checkbox
-                                                                    checked={field.value}
-                                                                    onCheckedChange={field.onChange}
-                                                                />
-                                                            </FormControl>
-                                                            <div className="space-y-1 leading-none">
-                                                                <FormLabel>
-                                                                    {formfield.termsAndConditionsUrl ? (
-                                                                        <span>
-                                                                            I agree to the{" "}
-                                                                            <a
-                                                                                href={formfield.termsAndConditionsUrl}
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer"
-                                                                            >
-                                                                                {formfield.label}
-                                                                            </a>
-                                                                        </span>
-                                                                    ) : (
-                                                                        formfield.label
-                                                                    )}
-                                                                </FormLabel>
-                                                            </div>
+                                                        <div className="space-y-1 leading-none">
+                                                            <FormLabel>
+                                                                {formfield.termsAndConditionsUrl ? (
+                                                                    <span>
+                                                                        I agree to the{" "}
+                                                                        <a
+                                                                            href={formfield.termsAndConditionsUrl}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                        >
+                                                                            {formfield.label}
+                                                                        </a>
+                                                                    </span>
+                                                                ) : (
+                                                                    formfield.label
+                                                                )}
+                                                            </FormLabel>
                                                         </div>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        );
-                                    default:
-                                        return null;
-                                }
-                            })}
-                            <div className="pt-2">
-                                <Button type="submit" className="w-full py-6 text-lg">
-                                    {isLoading ? "Submitting..." : data.submit}
-                                </Button>
-                            </div>
-                        </form>
-                    </Form>
-                </div>
+                                                    </div>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    );
+                                default:
+                                    return null;
+                            }
+                        })}
+                        <div className="pt-2">
+                            <Button type="submit" className="w-full py-6 text-lg">
+                                {isLoading ? "Submitting..." : data.submit}
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
             </div>
         </section>
     );

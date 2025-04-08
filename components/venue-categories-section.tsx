@@ -38,10 +38,10 @@ export default function VenueCategoriesSection({
     return (
         <section
             id={_type}
-            className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background"
+            className="w-full px-4 md:px-6 py-8 md:py-12 lg:py-16 bg-background"
             style={{ backgroundColor: backgroundColor?.hex }}
         >
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8 md:mb-12">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
             </div>
 
@@ -79,9 +79,9 @@ export default function VenueCategoriesSection({
                     {venueCategories?.map((category: any) => (
                         <Card
                             key={category._id}
-                            className="overflow-hidden flex-none w-[300px] md:w-[350px] snap-center"
+                            className="overflow-hidden flex-none w-[300px] md:w-[350px] snap-center p-4 gap-4"
                         >
-                            <div className="p-4 flex items-center gap-3 border-b">
+                            <div className="flex justify-center items-center gap-3 border-b p-2">
                                 <Image
                                     src={urlFor(category.icon).url() || "/placeholder.svg"}
                                     alt={category.name}
@@ -92,7 +92,7 @@ export default function VenueCategoriesSection({
                                 <h3 className="text-lg font-semibold">{category.name}</h3>
                             </div>
 
-                            <div className="space-y-4 p-4">
+                            <div className="space-y-4">
                                 <div className="relative h-48 w-full overflow-hidden rounded-md">
                                     <Image
                                         src={urlFor(category.image).url() || ""}

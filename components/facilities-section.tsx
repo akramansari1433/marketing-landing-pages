@@ -18,10 +18,10 @@ export default function FacilitiesSection({
     return (
         <section
             id={_type}
-            className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background"
+            className="w-full px-4 md:px-6 py-8 md:py-12 lg:py-16 bg-background"
             style={{ backgroundColor: backgroundColor?.hex }}
         >
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8 md:mb-12">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
             </div>
             <div className="space-y-8">

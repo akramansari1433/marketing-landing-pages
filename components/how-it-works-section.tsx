@@ -61,13 +61,13 @@ export default function HowItWorksSection({
     return (
         <section
             id={_type}
-            className="w-full py-12 md:py-24 lg:py-32 bg-background"
+            className="w-full px-4 md:px-6 py-8 md:py-12 lg:py-16 bg-background"
             style={{ backgroundColor: backgroundColor?.hex }}
         >
             {/* Container */}
             <div className="px-4 md:px-6">
                 {/* Section Header */}
-                <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
+                <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8 md:mb-12">
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
                     <p className="max-w-[700px] text-muted-foreground md:text-xl">{sectionDescription}</p>
                 </div>

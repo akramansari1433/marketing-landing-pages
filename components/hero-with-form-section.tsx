@@ -42,7 +42,7 @@ export default function HeroWithForm({
                         {subtitle && <p className="text-lg md:text-xl max-w-[600px]">{subtitle}</p>}
                     </div>
 
-                    <div>
+                    <div className="max-w-xl mx-auto">
                         <FormSectionComponent {...(form as FormSection)} />
                     </div>
                 </div>

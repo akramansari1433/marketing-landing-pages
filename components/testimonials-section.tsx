@@ -52,8 +52,12 @@ export default function TestimonialsSection({
     };
 
     return (
-        <section id={_type} className="py-16 px-4 md:px-6 lg:px-8" style={{ backgroundColor: backgroundColor?.hex }}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
+        <section
+            id={_type}
+            className="w-full px-4 md:px-6 py-8 md:py-12 lg:py-16 bg-background"
+            style={{ backgroundColor: backgroundColor?.hex }}
+        >
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8 md:mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{sectionTitle}</h2>
                 <p className="text-slate-600 max-w-2xl mx-auto">{sectionDescription}</p>
             </div>
