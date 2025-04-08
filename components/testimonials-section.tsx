@@ -16,6 +16,7 @@ interface Testimonial {
 }
 
 export default function TestimonialsSection({
+    _type,
     sectionTitle,
     sectionDescription,
     testimonials = [],
@@ -51,7 +52,7 @@ export default function TestimonialsSection({
     };
 
     return (
-        <section className="py-16 px-4 md:px-6 lg:px-8" style={{ backgroundColor: backgroundColor?.hex }}>
+        <section id={_type} className="py-16 px-4 md:px-6 lg:px-8" style={{ backgroundColor: backgroundColor?.hex }}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12 md:mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{sectionTitle}</h2>
                 <p className="text-slate-600 max-w-2xl mx-auto">{sectionDescription}</p>

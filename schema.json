@@ -1574,12 +1574,86 @@
         },
         "optional": true
       },
-      "buttonLink": {
+      "buttonAction": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "inline",
+          "name": "buttonType"
         },
         "optional": true
+      }
+    }
+  },
+  {
+    "name": "buttonType",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "buttonType"
+          }
+        },
+        "type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "scroll"
+              },
+              {
+                "type": "string",
+                "value": "link"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "scrollToSection": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "heroWithFormSection"
+              },
+              {
+                "type": "string",
+                "value": "venueCategoriesSection"
+              },
+              {
+                "type": "string",
+                "value": "featuresSection"
+              },
+              {
+                "type": "string",
+                "value": "testimonialsSection"
+              },
+              {
+                "type": "string",
+                "value": "faqSection"
+              },
+              {
+                "type": "string",
+                "value": "contactSection"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "url": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        }
       }
     }
   },

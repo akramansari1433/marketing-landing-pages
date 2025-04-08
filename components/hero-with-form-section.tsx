@@ -5,6 +5,7 @@ import { FormSection, HeroWithFormSection } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 
 export default function HeroWithForm({
+    _type,
     backgroundType = "image",
     backgroundImage,
     backgroundColor,
@@ -23,7 +24,11 @@ export default function HeroWithForm({
             : { backgroundColor: backgroundColor?.hex || "#f3f4f6" };
 
     return (
-        <section className="relative w-full min-h-[600px] flex items-center py-16 md:py-24" style={backgroundStyle}>
+        <section
+            id={_type}
+            className="relative w-full min-h-[600px] flex items-center py-16 md:py-24"
+            style={backgroundStyle}
+        >
             {/* Overlay */}
             {overlay && backgroundType === "image" && <div className="absolute inset-0 bg-black/50" />}
 

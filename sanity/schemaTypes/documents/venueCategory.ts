@@ -56,11 +56,10 @@ export const venueCategory = defineType({
             initialValue: "View Venues",
         }),
         defineField({
-            name: "buttonLink",
-            title: "Button Link",
-            type: "url",
-            description: "URL to link the button to",
-            initialValue: "/venues",
+            name: "buttonAction",
+            title: "Button Action",
+            type: "buttonType",
+            description: "Configure what happens when the button is clicked",
         }),
     ],
 });

@@ -9,10 +9,12 @@ import { ChevronLeft, ChevronRight, Users } from "lucide-react";
 import Image from "next/image";
 
 export default function VenueCategoriesSection({
+    _type,
     sectionTitle,
     venueCategories,
     backgroundColor,
 }: VenueCategorySection) {
+    console.log("🚀 ~ venueCategories:", venueCategories);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scrollLeft = () => {
@@ -35,6 +37,7 @@ export default function VenueCategoriesSection({
 
     return (
         <section
+            id={_type}
             className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background"
             style={{ backgroundColor: backgroundColor?.hex }}
         >
@@ -119,7 +122,25 @@ export default function VenueCategoriesSection({
                                     </div>
                                 </div>
 
-                                <Button size="lg" className="w-full">
+                                <Button
+                                    size="lg"
+                                    className="w-full"
+                                    onClick={() => {
+                                        if (category.buttonAction?.type === "scroll") {
+                                            const element = document.getElementById(
+                                                category.buttonAction.scrollToSection
+                                            );
+                                            if (element) {
+                                                element.scrollIntoView({ behavior: "smooth" });
+                                            }
+                                        } else if (
+                                            category.buttonAction?.type === "link" &&
+                                            category.buttonAction.url
+                                        ) {
+                                            window.location.href = category.buttonAction.url;
+                                        }
+                                    }}
+                                >
                                     {category.buttonText}
                                 </Button>
                             </div>

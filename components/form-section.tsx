@@ -161,6 +161,7 @@ export default function FormSectionComponent(data: FormSection) {
 
     return (
         <section
+            id={data._type}
             className="py-8 px-4 rounded-xl md:px-4 lg:px-8"
             style={{ backgroundColor: data.backgroundColor?.hex }}
         >

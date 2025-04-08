@@ -6,6 +6,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { type HeroSection } from "@/sanity.types";
 
 export default function HeroSection({
+    _type,
     title,
     subtitle,
     backgroundImage,
@@ -22,7 +23,10 @@ export default function HeroSection({
     }[alignContent];
 
     return (
-        <section className="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <section
+            id={_type}
+            className="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden"
+        >
             {/* Background Image */}
             {backgroundImage ? (
                 <div className="absolute inset-0 w-full h-full">

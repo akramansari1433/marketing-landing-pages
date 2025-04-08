@@ -8,6 +8,7 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
 export default function FacilitiesSection({
+    _type,
     sectionTitle,
     facilities,
     packagesTitle,
@@ -16,6 +17,7 @@ export default function FacilitiesSection({
 }: FacilitiesSection) {
     return (
         <section
+            id={_type}
             className="w-full px-4 md:px-8 py-8 md:py-16 lg:py-24 bg-background"
             style={{ backgroundColor: backgroundColor?.hex }}
         >

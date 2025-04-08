@@ -32,6 +32,7 @@ interface Step {
 }
 
 export default function HowItWorksSection({
+    _type,
     sectionTitle,
     sectionDescription,
     steps = [],
@@ -59,6 +60,7 @@ export default function HowItWorksSection({
 
     return (
         <section
+            id={_type}
             className="w-full py-12 md:py-24 lg:py-32 bg-background"
             style={{ backgroundColor: backgroundColor?.hex }}
         >

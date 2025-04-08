@@ -264,7 +264,14 @@ export type VenueCategory = {
     _type: "image";
   };
   buttonText?: string;
-  buttonLink?: string;
+  buttonAction?: ButtonType;
+};
+
+export type ButtonType = {
+  _type: "buttonType";
+  type?: "scroll" | "link";
+  scrollToSection?: "heroWithFormSection" | "venueCategoriesSection" | "featuresSection" | "testimonialsSection" | "faqSection" | "contactSection";
+  url?: string;
 };
 
 export type Facility = {
@@ -430,7 +437,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | Facility | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | ButtonType | Facility | Page | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[slug]/page.tsx
 // Variable: pageQuery
@@ -619,7 +626,7 @@ export type PageQueryResult = {
         _type: "image";
       };
       buttonText?: string;
-      buttonLink?: string;
+      buttonAction?: ButtonType;
     }> | null;
     facilities: null;
     packages: null;
@@ -813,7 +820,7 @@ export type DataQueryResult = {
         _type: "image";
       };
       buttonText?: string;
-      buttonLink?: string;
+      buttonAction?: ButtonType;
     }> | null;
     facilities: null;
     packages: null;
