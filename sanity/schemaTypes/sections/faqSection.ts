@@ -11,52 +11,49 @@ export const faqSection = defineType({
             type: "color",
         }),
         defineField({
-            name: "question",
-            title: "Question",
+            name: "sectionTitle",
+            title: "Section Title",
             type: "string",
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: "answer",
-            title: "Answer",
+            name: "description",
+            title: "Description",
             type: "text",
-            rows: 4,
-            validation: (Rule) => Rule.required(),
+            rows: 3,
+            description: "Description of the venue section",
         }),
         defineField({
-            name: "category",
-            title: "Category",
-            type: "string",
-            options: {
-                list: [
-                    { title: "Booking", value: "booking" },
-                    { title: "Venues", value: "venues" },
-                    { title: "Payments", value: "payments" },
-                    { title: "Cancellation", value: "cancellation" },
-                    { title: "Services", value: "services" },
-                    { title: "Other", value: "other" },
-                ],
-            },
-            initialValue: "booking",
-        }),
-        defineField({
-            name: "featured",
-            title: "Featured on Homepage",
-            type: "boolean",
-            description: "Show this FAQ on the homepage",
-            initialValue: false,
-        }),
-        defineField({
-            name: "order",
-            title: "Display Order",
-            type: "number",
-            initialValue: 0,
+            name: "faqs",
+            title: "FAQs",
+            type: "array",
+            of: [
+                {
+                    name: "faq",
+                    title: "FAQ",
+                    type: "object",
+                    fields: [
+                        {
+                            name: "question",
+                            title: "Question",
+                            type: "string",
+                            validation: (Rule) => Rule.required().max(200),
+                        },
+                        {
+                            name: "answer",
+                            title: "Answer",
+                            type: "text",
+                            validation: (Rule) => Rule.required(),
+                        },
+                    ],
+                    preview: {
+                        select: {
+                            title: "question",
+                        },
+                    },
+                },
+            ],
+            validation: (Rule) => Rule.required().min(1),
         }),
     ],
-    preview: {
-        select: {
-            title: "question",
-            subtitle: "category",
-        },
-    },
 });

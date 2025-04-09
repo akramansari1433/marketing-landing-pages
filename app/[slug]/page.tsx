@@ -1,20 +1,12 @@
-import dynamic from "next/dynamic";
 import { client } from "@/sanity/lib/client";
 import { defineQuery } from "next-sanity";
 import Header from "@/components/header";
 import { notFound } from "next/navigation";
 import { PageProps } from "@/.next/types/app/layout";
+import { sectionComponentsMapping } from "@/lib/utils";
 
 // Dynamically import components for each section type.
 // Extend this mapping as you add more sections.
-const sectionComponents: Record<string, React.ComponentType<any>> = {
-    heroWithFormSection: dynamic(() => import("@/components/hero-with-form-section")),
-    venueCategorySection: dynamic(() => import("@/components/venue-categories-section")),
-    facilitiesSection: dynamic(() => import("@/components/facilities-section")),
-    howItWorksSection: dynamic(() => import("@/components/how-it-works-section")),
-    testimonialsSection: dynamic(() => import("@/components/testimonials-section")),
-    venueSection: dynamic(() => import("@/components/venue-section")),
-};
 
 export const revalidate = 60;
 
@@ -73,7 +65,7 @@ export default async function Home({ params }: PageProps) {
             <main>
                 {data?.content?.map((section, index) => {
                     // Select the matching component for the section type.
-                    const SectionComponent = sectionComponents[section._type];
+                    const SectionComponent = sectionComponentsMapping[section._type];
 
                     if (SectionComponent) {
                         return <SectionComponent key={section._key} {...section} />;

@@ -20,6 +20,7 @@ import { venueCategory } from "./documents/venueCategory";
 import { facilitiesSection } from "./sections/facilitySection";
 import { buttonType } from "./objects/buttonType";
 import { venueSection } from "./sections/venueSection";
+import { faqSection } from "./sections/faqSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -41,5 +42,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         venueCategorySection,
         facilitiesSection,
         venueSection,
+        faqSection,
     ],
 };

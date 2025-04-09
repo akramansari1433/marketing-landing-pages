@@ -68,6 +68,23 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type FaqSection = {
+  _id: string;
+  _type: "faqSection";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  backgroundColor?: Color;
+  sectionTitle?: string;
+  description?: string;
+  faqs?: Array<{
+    question?: string;
+    answer?: string;
+    _type: "faq";
+    _key: string;
+  }>;
+};
+
 export type VenueSection = {
   _type: "venueSection";
   backgroundColor?: Color;
@@ -345,7 +362,19 @@ export type Page = {
     _key: string;
   } & FacilitiesSection | {
     _key: string;
-  } & VenueSection>;
+  } & VenueSection | {
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    description?: string;
+    faqs?: Array<{
+      question?: string;
+      answer?: string;
+      _type: "faq";
+      _key: string;
+    }>;
+    _type: "faqSection";
+    _key: string;
+  }>;
 };
 
 export type ButtonType = {
@@ -475,7 +504,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | Facility | Page | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | Facility | Page | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[slug]/page.tsx
 // Variable: query
@@ -539,6 +568,22 @@ export type PageQueryResult = {
       _key: string;
     }> | null;
     venueCategories: null;
+    venues: null;
+  } | {
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    description?: string;
+    faqs?: Array<{
+      question?: string;
+      answer?: string;
+      _type: "faq";
+      _key: string;
+    }>;
+    _type: "faqSection";
+    _key: string;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
     venues: null;
   } | {
     _key: string;
@@ -789,6 +834,22 @@ export type DataQueryResult = {
       _key: string;
     }> | null;
     venueCategories: null;
+    venues: null;
+  } | {
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    description?: string;
+    faqs?: Array<{
+      question?: string;
+      answer?: string;
+      _type: "faq";
+      _key: string;
+    }>;
+    _type: "faqSection";
+    _key: string;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
     venues: null;
   } | {
     _key: string;
