@@ -6,109 +6,79 @@ export const venueSection = defineType({
     type: "object",
     fields: [
         defineField({
-            name: "name",
-            title: "Name",
+            name: "backgroundColor",
+            title: "Background Color",
+            type: "color",
+        }),
+        defineField({
+            name: "sectionTitle",
+            title: "Section Title",
             type: "string",
             validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-            name: "slug",
-            title: "Slug",
-            type: "slug",
-            options: {
-                source: "name",
-                maxLength: 96,
-            },
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-            name: "area",
-            title: "Area",
-            type: "string",
-            description: 'Location area (e.g., "Downtown Dubai", "Dubai Marina")',
-        }),
-        defineField({
-            name: "capacity",
-            title: "Capacity",
-            type: "string",
-            description: 'e.g., "Up to 50 people"',
-        }),
-        defineField({
-            name: "rating",
-            title: "Rating",
-            type: "number",
-            description: "Rating from 1 to 5",
-            validation: (Rule) => Rule.min(1).max(5).precision(1),
-        }),
-        defineField({
-            name: "tags",
-            title: "Tags",
-            type: "array",
-            of: [{ type: "string" }],
-            description: 'Quick info tags (e.g., "AV Equipped", "Downtown")',
-        }),
-        defineField({
-            name: "image",
-            title: "Image",
-            type: "image",
-            options: {
-                hotspot: true,
-            },
-        }),
-        defineField({
-            name: "categories",
-            title: "Categories",
-            type: "array",
-            of: [
-                {
-                    type: "reference",
-                    to: [{ type: "venueCategory" }],
-                },
-            ],
-        }),
-        defineField({
-            name: "facilities",
-            title: "Facilities",
-            type: "array",
-            of: [
-                {
-                    type: "reference",
-                    to: [{ type: "facility" }],
-                },
-            ],
         }),
         defineField({
             name: "description",
             title: "Description",
             type: "text",
             rows: 3,
+            description: "Description of the venue section",
         }),
         defineField({
-            name: "price",
-            title: "Starting Price",
-            type: "number",
-            description: "Starting price in AED",
-        }),
-        defineField({
-            name: "featured",
-            title: "Featured Venue",
-            type: "boolean",
-            description: "Show this venue in the featured carousel",
-            initialValue: false,
-        }),
-        defineField({
-            name: "order",
-            title: "Display Order",
-            type: "number",
-            initialValue: 0,
-            description: "Order in featured carousel (lower numbers appear first)",
+            name: "venues",
+            title: "Venues",
+            type: "array",
+            of: [
+                {
+                    type: "object",
+                    name: "venue",
+                    fields: [
+                        {
+                            name: "image",
+                            type: "image",
+                            title: "Venue Image",
+                        },
+                        {
+                            name: "name",
+                            type: "string",
+                            title: "Venue Name",
+                        },
+                        {
+                            name: "location",
+                            type: "string",
+                            title: "Location",
+                        },
+                        {
+                            name: "capacity",
+                            type: "string",
+                            title: "Capacity",
+                        },
+                        {
+                            name: "rating",
+                            type: "number",
+                            title: "Rating",
+                        },
+                        {
+                            name: "facilities",
+                            type: "array",
+                            title: "Facilities",
+                            of: [{ type: "reference", to: [{ type: "facility" }] }],
+                        },
+                        {
+                            name: "buttonText",
+                            type: "string",
+                            title: "Button Text",
+                            description: "Text for the button in the category section",
+                            initialValue: "Enquire Now",
+                        },
+                        {
+                            name: "buttonAction",
+                            title: "Button Action",
+                            type: "buttonType",
+                            description: "Configure what happens when the button is clicked",
+                        },
+                    ],
+                },
+            ],
         }),
     ],
-    preview: {
-        select: {
-            title: "name",
-            subtitle: "area",
-            media: "image",
-        },
-    },
 });

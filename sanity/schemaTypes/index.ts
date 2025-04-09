@@ -19,6 +19,7 @@ import { facility } from "./documents/facility";
 import { venueCategory } from "./documents/venueCategory";
 import { facilitiesSection } from "./sections/facilitySection";
 import { buttonType } from "./objects/buttonType";
+import { venueSection } from "./sections/venueSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -39,5 +40,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         heroWithFormSection,
         venueCategorySection,
         facilitiesSection,
+        venueSection,
     ],
 };

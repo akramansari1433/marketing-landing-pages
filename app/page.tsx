@@ -11,6 +11,7 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
     facilitiesSection: dynamic(() => import("@/components/facilities-section")),
     howItWorksSection: dynamic(() => import("@/components/how-it-works-section")),
     testimonialsSection: dynamic(() => import("@/components/testimonials-section")),
+    venueSection: dynamic(() => import("@/components/venue-section")),
 };
 
 export const revalidate = 60;
@@ -32,6 +33,12 @@ export default async function Home() {
                     ..., 
                 },
                 packages[] {
+                    ...,
+                    facilities[]-> {
+                    ...,
+                    },
+                },
+                venues[] {
                     ...,
                     facilities[]-> {
                     ...,

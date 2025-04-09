@@ -14,20 +14,8 @@ export const corporatePackageSection = defineType({
             name: "sectionTitle",
             title: "Section Title",
             type: "string",
-            initialValue: "Facilities & Amenities",
+            initialValue: "Corporate Packages",
             validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-            name: "title",
-            title: "Title",
-            type: "string",
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-            name: "description",
-            title: "Description",
-            type: "text",
-            rows: 2,
         }),
         defineField({
             name: "icon",

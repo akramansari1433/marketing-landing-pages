@@ -13,6 +13,7 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
     facilitiesSection: dynamic(() => import("@/components/facilities-section")),
     howItWorksSection: dynamic(() => import("@/components/how-it-works-section")),
     testimonialsSection: dynamic(() => import("@/components/testimonials-section")),
+    venueSection: dynamic(() => import("@/components/venue-section")),
 };
 
 export const revalidate = 60;
@@ -22,9 +23,9 @@ export async function generateStaticParams() {
         "slug": slug.current
     }`);
 
-    const slugs: { slug: string }[] = await client.fetch(query);
+    const slugs = await client.fetch(query);
     return slugs.map((page) => ({
-        slug: page.slug.startsWith("/") ? page.slug.slice(1) : page.slug,
+        slug: page?.slug?.startsWith("/") ? page.slug.slice(1) : page.slug,
     }));
 }
 
@@ -32,7 +33,7 @@ export default async function Home({ params }: PageProps) {
     const { slug } = await params;
 
     const pageQuery = defineQuery(
-        `*[_type == "page" && slug.current == $slug][0] {
+        `*[_type == "page" && slug.current == "/"][0] {
             title,
             header,
             content[] {
@@ -47,6 +48,12 @@ export default async function Home({ params }: PageProps) {
                     ..., 
                 },
                 packages[] {
+                    ...,
+                    facilities[]-> {
+                    ...,
+                    },
+                },
+                venues[] {
                     ...,
                     facilities[]-> {
                     ...,
