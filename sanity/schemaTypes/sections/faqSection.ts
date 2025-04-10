@@ -3,7 +3,7 @@ import { defineField, defineType } from "sanity";
 export const faqSection = defineType({
     name: "faqSection",
     title: "FAQ Section",
-    type: "document",
+    type: "object",
     fields: [
         defineField({
             name: "backgroundColor",
