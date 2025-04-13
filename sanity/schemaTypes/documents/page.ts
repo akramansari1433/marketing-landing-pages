@@ -38,6 +38,7 @@ export const page = defineType({
                 { type: "venueSection" },
                 { type: "faqSection" },
                 { type: "titleDescriptionCtaSection" },
+                { type: "imageGallerySection" },
             ],
         },
         {

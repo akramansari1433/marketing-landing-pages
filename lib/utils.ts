@@ -15,4 +15,5 @@ export const sectionComponentsMapping: Record<string, React.ComponentType<any>> 
     venueSection: dynamic(() => import("@/components/venue-section")),
     faqSection: dynamic(() => import("@/components/faq-section")),
     titleDescriptionCtaSection: dynamic(() => import("@/components/title-description-cta-section")),
+    imageGallerySection: dynamic(() => import("@/components/image-gallery-section")),
 };

@@ -6,9 +6,6 @@ import { PageProps } from "@/.next/types/app/layout";
 import { sectionComponentsMapping } from "@/lib/utils";
 import FloatingButton from "@/components/floating-button";
 
-// Dynamically import components for each section type.
-// Extend this mapping as you add more sections.
-
 export const revalidate = 60;
 
 export async function generateStaticParams() {

@@ -68,6 +68,23 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type ImageGallerySection = {
+  _type: "imageGallerySection";
+  images?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+};
+
 export type TitleDescriptionCtaSection = {
   _type: "titleDescriptionCtaSection";
   backgroundColor?: Color;
@@ -454,7 +471,9 @@ export type Page = {
     _key: string;
   } & FaqSection | {
     _key: string;
-  } & TitleDescriptionCtaSection>;
+  } & TitleDescriptionCtaSection | {
+    _key: string;
+  } & ImageGallerySection>;
   floatingButton?: FloatingButton;
 };
 
@@ -586,7 +605,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | TitleDescriptionCtaSection | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | CtaButton | FormField | NavigationItem | SiteSettings | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ImageGallerySection | TitleDescriptionCtaSection | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | CtaButton | FormField | NavigationItem | SiteSettings | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[slug]/page.tsx
 // Variable: query
@@ -719,6 +738,26 @@ export type PageQueryResult = {
     }>;
     chatButtonText?: string;
     chatButtonLink?: string;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
+    venues: null;
+  } | {
+    _key: string;
+    _type: "imageGallerySection";
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
     venueCategories: null;
     facilities: null;
     packages: null;
@@ -1040,6 +1079,26 @@ export type DataQueryResult = {
     }>;
     chatButtonText?: string;
     chatButtonLink?: string;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
+    venues: null;
+  } | {
+    _key: string;
+    _type: "imageGallerySection";
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
     venueCategories: null;
     facilities: null;
     packages: null;

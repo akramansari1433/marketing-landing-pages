@@ -25,6 +25,7 @@ import { facilitiesSection } from "./sections/facilitySection";
 import { venueSection } from "./sections/venueSection";
 import { faqSection } from "./sections/faqSection";
 import { titleDescriptionCtaSection } from "./sections/titleDescriptionCtaSection";
+import { imageGallerySection } from "./sections/imageGallerySection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -51,5 +52,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         venueSection,
         faqSection,
         titleDescriptionCtaSection,
+        imageGallerySection,
     ],
 };

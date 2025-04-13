@@ -1,6 +1,5 @@
-import dynamic from "next/dynamic";
 import { client } from "@/sanity/lib/client";
-import { defineQuery, groq } from "next-sanity";
+import { defineQuery } from "next-sanity";
 import Header from "@/components/header";
 import { sectionComponentsMapping } from "@/lib/utils";
 import { FloatingButton } from "@/components/floating-button";
