@@ -26,7 +26,7 @@ export default async function Home({ params }: PageProps) {
     const { slug } = await params;
 
     const pageQuery = defineQuery(
-        `*[_type == "page" && slug.current == "/"][0] {
+        `*[_type == "page" && slug.current == $slug][0] {
             title,
             header,
             floatingButton,
