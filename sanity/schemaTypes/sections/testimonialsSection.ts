@@ -46,6 +46,14 @@ export const testimonialsSection = defineType({
                             validation: (Rule) => Rule.required(),
                         },
                         {
+                            name: "image",
+                            title: "Image",
+                            type: "image",
+                            options: {
+                                hotspot: true,
+                            },
+                        },
+                        {
                             name: "author",
                             title: "Author",
                             type: "string",

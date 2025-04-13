@@ -197,6 +197,18 @@ export type TestimonialsSection = {
   rating?: number;
   testimonials?: Array<{
     quote?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
     author?: string;
     role?: string;
     company?: string;
@@ -702,6 +714,18 @@ export type PageQueryResult = {
     rating?: number;
     testimonials?: Array<{
       quote?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
       author?: string;
       role?: string;
       company?: string;
@@ -998,6 +1022,18 @@ export type DataQueryResult = {
     rating?: number;
     testimonials?: Array<{
       quote?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
       author?: string;
       role?: string;
       company?: string;

@@ -33,7 +33,6 @@ export default async function RootLayout({
     }`);
 
     const data = await client.fetch(siteSettingsQuery);
-    console.log("🚀 ~ data:", themeToCssVars(data?.themeColor));
 
     return (
         <html lang="en" style={themeToCssVars(data?.themeColor)}>
