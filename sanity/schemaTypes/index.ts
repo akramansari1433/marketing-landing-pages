@@ -22,6 +22,7 @@ import { buttonType } from "./objects/buttonType";
 import { venueSection } from "./sections/venueSection";
 import { faqSection } from "./sections/faqSection";
 import { floatingButton } from "./objects/floatingButton";
+import { siteSettings } from "./documents/siteSetting";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -29,6 +30,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         page,
         facility,
         venueCategory,
+        siteSettings,
         // Objects
         navigationItem,
         header,

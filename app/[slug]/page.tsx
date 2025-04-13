@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import { notFound } from "next/navigation";
 import { PageProps } from "@/.next/types/app/layout";
 import { sectionComponentsMapping } from "@/lib/utils";
+import FloatingButton from "@/components/floating-button";
 
 // Dynamically import components for each section type.
 // Extend this mapping as you add more sections.
@@ -28,6 +29,7 @@ export default async function Home({ params }: PageProps) {
         `*[_type == "page" && slug.current == "/"][0] {
             title,
             header,
+            floatingButton,
             content[] {
                 ...,
                 venueCategories[]-> {
@@ -73,6 +75,7 @@ export default async function Home({ params }: PageProps) {
                     // Fallback if the section type doesn't have a component mapping.
                     return <p key={index}>Section not found</p>;
                 })}
+                {data?.floatingButton && <FloatingButton {...data.floatingButton} />}
             </main>
         </>
     );

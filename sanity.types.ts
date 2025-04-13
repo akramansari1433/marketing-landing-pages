@@ -272,6 +272,54 @@ export type NavigationItem = {
   isExternal?: boolean;
 };
 
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  legalName?: string;
+  contact?: {
+    phone?: string;
+    email?: string;
+  };
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+  };
+  themeColor?: {
+    background?: Color;
+    foreground?: Color;
+    primary?: Color;
+    primaryForeground?: Color;
+    secondary?: Color;
+    secondaryForeground?: Color;
+    accent?: Color;
+    accentForeground?: Color;
+  };
+  social?: {
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+    linkedin?: string;
+    youtube?: string;
+  };
+};
+
 export type VenueCategory = {
   _id: string;
   _type: "venueCategory";
@@ -508,7 +556,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | SiteSettings | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[slug]/page.tsx
 // Variable: query
@@ -517,10 +565,11 @@ export type QueryResult = Array<{
   slug: string | null;
 }>;
 // Variable: pageQuery
-// Query: *[_type == "page" && slug.current == "/"][0] {            title,            header,            content[] {                ...,                venueCategories[]-> {                    ...,                    facilities[]-> {                        ...,                    }                },                facilities[]-> {                    ...,                 },                packages[] {                    ...,                    facilities[]-> {                    ...,                    },                },                venues[] {                    ...,                    facilities[]-> {                    ...,                    },                }            }           }
+// Query: *[_type == "page" && slug.current == "/"][0] {            title,            header,            floatingButton,            content[] {                ...,                venueCategories[]-> {                    ...,                    facilities[]-> {                        ...,                    }                },                facilities[]-> {                    ...,                 },                packages[] {                    ...,                    facilities[]-> {                    ...,                    },                },                venues[] {                    ...,                    facilities[]-> {                    ...,                    },                }            }           }
 export type PageQueryResult = {
   title: string | null;
   header: Header | null;
+  floatingButton: FloatingButton | null;
   content: Array<{
     _key: string;
     _type: "facilitiesSection";
@@ -779,6 +828,35 @@ export type PageQueryResult = {
     facilities: null;
     packages: null;
   }> | null;
+} | null;
+
+// Source: ./app/layout.tsx
+// Variable: siteSettingsQuery
+// Query: *[_type == "siteSettings"][0] {        logo,        themeColor,        legalName    }
+export type SiteSettingsQueryResult = {
+  logo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  themeColor: {
+    background?: Color;
+    foreground?: Color;
+    primary?: Color;
+    primaryForeground?: Color;
+    secondary?: Color;
+    secondaryForeground?: Color;
+    accent?: Color;
+    accentForeground?: Color;
+  } | null;
+  legalName: string | null;
 } | null;
 
 // Source: ./app/page.tsx
@@ -1053,7 +1131,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"page\"]{\n        \"slug\": slug.current\n    }": QueryResult;
-    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            content[] {\n                ...,\n                venueCategories[]-> {\n                    ...,\n                    facilities[]-> {\n                        ...,\n                    }\n                },\n                facilities[]-> {\n                    ..., \n                },\n                packages[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                },\n                venues[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                }\n            }   \n        }": PageQueryResult;
-    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            floatingButton,\n            content[] {\n                ...,\n                venueCategories[]-> {\n                    ...,\n                    facilities[]-> {\n                        ...,\n                    }\n                },\n                facilities[]-> {\n                    ..., \n                },\n                packages[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                },\n                venues[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                }\n            }   \n        }": DataQueryResult;
+    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            floatingButton,\n            content[] {\n                ...,\n                venueCategories[]-> {\n                    ...,\n                    facilities[]-> {\n                        ...,\n                    }\n                },\n                facilities[]-> {\n                    ..., \n                },\n                packages[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                },\n                venues[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                }\n            }   \n        }": PageQueryResult | DataQueryResult;
+    "*[_type == \"siteSettings\"][0] {\n        logo,\n        themeColor,\n        legalName\n    }": SiteSettingsQueryResult;
   }
 }
