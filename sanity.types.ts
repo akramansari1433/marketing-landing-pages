@@ -69,11 +69,7 @@ export type Geopoint = {
 };
 
 export type FaqSection = {
-  _id: string;
   _type: "faqSection";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
   backgroundColor?: Color;
   sectionTitle?: string;
   description?: string;
@@ -363,18 +359,8 @@ export type Page = {
   } & FacilitiesSection | {
     _key: string;
   } & VenueSection | {
-    backgroundColor?: Color;
-    sectionTitle?: string;
-    description?: string;
-    faqs?: Array<{
-      question?: string;
-      answer?: string;
-      _type: "faq";
-      _key: string;
-    }>;
-    _type: "faqSection";
     _key: string;
-  }>;
+  } & FaqSection>;
 };
 
 export type ButtonType = {
@@ -455,13 +441,6 @@ export type Header = {
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  };
-  navigationItems?: Array<{
-    _key: string;
-  } & NavigationItem>;
-  ctaButton?: {
-    label?: string;
-    link?: string;
   };
 };
 
@@ -570,6 +549,8 @@ export type PageQueryResult = {
     venueCategories: null;
     venues: null;
   } | {
+    _key: string;
+    _type: "faqSection";
     backgroundColor?: Color;
     sectionTitle?: string;
     description?: string;
@@ -579,8 +560,6 @@ export type PageQueryResult = {
       _type: "faq";
       _key: string;
     }>;
-    _type: "faqSection";
-    _key: string;
     venueCategories: null;
     facilities: null;
     packages: null;
@@ -836,6 +815,8 @@ export type DataQueryResult = {
     venueCategories: null;
     venues: null;
   } | {
+    _key: string;
+    _type: "faqSection";
     backgroundColor?: Color;
     sectionTitle?: string;
     description?: string;
@@ -845,8 +826,6 @@ export type DataQueryResult = {
       _type: "faq";
       _key: string;
     }>;
-    _type: "faqSection";
-    _key: string;
     venueCategories: null;
     facilities: null;
     packages: null;
