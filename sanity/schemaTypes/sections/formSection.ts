@@ -40,5 +40,11 @@ export const formSection = defineType({
             type: "url",
             validation: (Rule) => Rule.required(),
         },
+        {
+            name: "redirectPath",
+            title: "Redirect Path",
+            type: "string",
+            description: "Path to redirect after successful submission",
+        },
     ],
 });

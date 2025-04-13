@@ -18,6 +18,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "./ui/calendar";
 import { TimePicker } from "./time-picker";
 import { Checkbox } from "@/components/ui/checkbox";
+import { redirect } from "next/navigation";
 
 const generateSchema = (fields: FormSection["fields"] = []) => {
     const schemaObject: Record<string, any> = {};
@@ -151,9 +152,17 @@ export default function FormSectionComponent(data: FormSection) {
             method: "POST",
             body: JSON.stringify(values),
         });
-        form.reset();
+        if (!response.ok) {
+            toast.error("Something went wrong");
+            const responseData = await response.json();
+            console.log({ responseData });
+            return;
+        }
         toast.success("Form submitted successfully");
-        console.log({ response });
+        form.reset();
+        if (data?.redirectPath) {
+            redirect(data?.redirectPath);
+        }
     }
 
     const isLoading = form.formState.isSubmitting;

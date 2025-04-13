@@ -23,6 +23,7 @@ import { venueSection } from "./sections/venueSection";
 import { faqSection } from "./sections/faqSection";
 import { floatingButton } from "./objects/floatingButton";
 import { siteSettings } from "./documents/siteSetting";
+import { titleDescriptionSection } from "./sections/titleDescriptionSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -47,5 +48,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         facilitiesSection,
         venueSection,
         faqSection,
+        titleDescriptionSection,
     ],
 };

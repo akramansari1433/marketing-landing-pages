@@ -68,6 +68,13 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type TitleDescriptionSection = {
+  _type: "titleDescriptionSection";
+  backgroundColor?: Color;
+  sectionTitle?: string;
+  sectionDescription?: string;
+};
+
 export type FaqSection = {
   _type: "faqSection";
   backgroundColor?: Color;
@@ -187,6 +194,7 @@ export type FormSection = {
   } & FormField>;
   submit?: string;
   submissionEndpoint?: string;
+  redirectPath?: string;
 };
 
 export type TestimonialsSection = {
@@ -420,7 +428,9 @@ export type Page = {
     _key: string;
   } & VenueSection | {
     _key: string;
-  } & FaqSection>;
+  } & FaqSection | {
+    _key: string;
+  } & TitleDescriptionSection>;
   floatingButton?: FloatingButton;
 };
 
@@ -568,7 +578,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | SiteSettings | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | TitleDescriptionSection | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | SiteSettings | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[slug]/page.tsx
 // Variable: query
@@ -732,6 +742,16 @@ export type PageQueryResult = {
       _type: "testimonial";
       _key: string;
     }>;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
+    venues: null;
+  } | {
+    _key: string;
+    _type: "titleDescriptionSection";
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    sectionDescription?: string;
     venueCategories: null;
     facilities: null;
     packages: null;
@@ -1040,6 +1060,16 @@ export type DataQueryResult = {
       _type: "testimonial";
       _key: string;
     }>;
+    venueCategories: null;
+    facilities: null;
+    packages: null;
+    venues: null;
+  } | {
+    _key: string;
+    _type: "titleDescriptionSection";
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    sectionDescription?: string;
     venueCategories: null;
     facilities: null;
     packages: null;

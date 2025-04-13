@@ -326,6 +326,44 @@
     }
   },
   {
+    "name": "titleDescriptionSection",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "titleDescriptionSection"
+          }
+        },
+        "backgroundColor": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "color"
+          },
+          "optional": true
+        },
+        "sectionTitle": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "sectionDescription": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
     "name": "faqSection",
     "type": "type",
     "value": {
@@ -1066,6 +1104,13 @@
           "optional": true
         },
         "submissionEndpoint": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "redirectPath": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
@@ -2530,6 +2575,21 @@
                 "rest": {
                   "type": "inline",
                   "name": "faqSection"
+                }
+              },
+              {
+                "type": "object",
+                "attributes": {
+                  "_key": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "rest": {
+                  "type": "inline",
+                  "name": "titleDescriptionSection"
                 }
               }
             ]
