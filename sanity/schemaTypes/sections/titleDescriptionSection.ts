@@ -14,7 +14,6 @@ export const titleDescriptionSection = defineType({
             name: "sectionTitle",
             title: "Section Title",
             type: "string",
-            initialValue: "Facilities & Amenities",
             validation: (Rule) => Rule.required(),
         },
         {
