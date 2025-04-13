@@ -68,11 +68,14 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type TitleDescriptionSection = {
-  _type: "titleDescriptionSection";
+export type TitleDescriptionCtaSection = {
+  _type: "titleDescriptionCtaSection";
   backgroundColor?: Color;
   sectionTitle?: string;
   sectionDescription?: string;
+  ctaButton?: Array<{
+    _key: string;
+  } & CtaButton>;
 };
 
 export type FaqSection = {
@@ -274,6 +277,27 @@ export type HeroSection = {
   overlay?: boolean;
 };
 
+export type CtaButton = {
+  _type: "ctaButton";
+  type?: "phone" | "whatsapp";
+  icon?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  buttonText?: string;
+  phoneNumber?: string;
+  whatsappMessage?: string;
+  backgroundColor?: Color;
+};
+
 export type FormField = {
   _type: "formField";
   label?: string;
@@ -430,31 +454,15 @@ export type Page = {
     _key: string;
   } & FaqSection | {
     _key: string;
-  } & TitleDescriptionSection>;
+  } & TitleDescriptionCtaSection>;
   floatingButton?: FloatingButton;
 };
 
 export type FloatingButton = {
   _type: "floatingButton";
   buttons?: Array<{
-    type?: "phone" | "whatsapp";
-    icon?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    phoneNumber?: string;
-    whatsappMessage?: string;
-    backgroundColor?: Color;
     _key: string;
-  }>;
+  } & CtaButton>;
   position?: "bottom-right" | "bottom-left";
 };
 
@@ -578,7 +586,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | TitleDescriptionSection | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | SiteSettings | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | TitleDescriptionCtaSection | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | CtaButton | FormField | NavigationItem | SiteSettings | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[slug]/page.tsx
 // Variable: query
@@ -748,10 +756,13 @@ export type PageQueryResult = {
     venues: null;
   } | {
     _key: string;
-    _type: "titleDescriptionSection";
+    _type: "titleDescriptionCtaSection";
     backgroundColor?: Color;
     sectionTitle?: string;
     sectionDescription?: string;
+    ctaButton?: Array<{
+      _key: string;
+    } & CtaButton>;
     venueCategories: null;
     facilities: null;
     packages: null;
@@ -1066,10 +1077,13 @@ export type DataQueryResult = {
     venues: null;
   } | {
     _key: string;
-    _type: "titleDescriptionSection";
+    _type: "titleDescriptionCtaSection";
     backgroundColor?: Color;
     sectionTitle?: string;
     sectionDescription?: string;
+    ctaButton?: Array<{
+      _key: string;
+    } & CtaButton>;
     venueCategories: null;
     facilities: null;
     packages: null;

@@ -37,7 +37,7 @@ export const page = defineType({
                 { type: "facilitiesSection" },
                 { type: "venueSection" },
                 { type: "faqSection" },
-                { type: "titleDescriptionSection" },
+                { type: "titleDescriptionCtaSection" },
             ],
         },
         {

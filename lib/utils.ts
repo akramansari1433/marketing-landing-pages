@@ -14,5 +14,5 @@ export const sectionComponentsMapping: Record<string, React.ComponentType<any>> 
     testimonialsSection: dynamic(() => import("@/components/testimonials-section")),
     venueSection: dynamic(() => import("@/components/venue-section")),
     faqSection: dynamic(() => import("@/components/faq-section")),
-    titleDescriptionSection: dynamic(() => import("@/components/title-description-section")),
+    titleDescriptionCtaSection: dynamic(() => import("@/components/title-description-cta-section")),
 };

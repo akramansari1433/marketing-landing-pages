@@ -1,8 +1,8 @@
 import { defineType } from "sanity";
 
-export const titleDescriptionSection = defineType({
-    name: "titleDescriptionSection",
-    title: "Title and Description Section",
+export const titleDescriptionCtaSection = defineType({
+    name: "titleDescriptionCtaSection",
+    title: "Title, Description, and CTA Section",
     type: "object",
     fields: [
         {
@@ -21,6 +21,16 @@ export const titleDescriptionSection = defineType({
             title: "Section Description",
             type: "string",
             validation: (Rule) => Rule.required(),
+        },
+        {
+            name: "ctaButton",
+            title: "Call to Action Button",
+            type: "array",
+            of: [
+                {
+                    type: "ctaButton",
+                },
+            ],
         },
     ],
 });
