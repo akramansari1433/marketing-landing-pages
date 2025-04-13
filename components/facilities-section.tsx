@@ -22,10 +22,13 @@ export default function FacilitiesSection({
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{sectionTitle}</h2>
             </div>
             <div className="space-y-8">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 justify-center mx-auto max-w-7xl">
+                <div className="flex flex-wrap justify-center gap-4 mx-auto max-w-7xl">
                     {facilities?.map((facility: any) => (
-                        <Card key={facility._id} className="border-0 shadow-sm hover:shadow-md transition-shadow">
-                            <CardContent className="flex flex-col items-center justify-center p-4 text-center h-full">
+                        <Card
+                            key={facility._id}
+                            className="border-0 shadow-sm hover:shadow-md transition-shadow w-[200px]"
+                        >
+                            <CardContent className="flex flex-col items-center justify-center p-4 text-center h-[150px]">
                                 <Image
                                     src={urlFor(facility.icon).url() || "/placeholder.svg"}
                                     alt={facility.name}
