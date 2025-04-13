@@ -21,6 +21,7 @@ import { facilitiesSection } from "./sections/facilitySection";
 import { buttonType } from "./objects/buttonType";
 import { venueSection } from "./sections/venueSection";
 import { faqSection } from "./sections/faqSection";
+import { floatingButton } from "./objects/floatingButton";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -33,6 +34,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         header,
         formField,
         buttonType,
+        floatingButton,
         // Sections
         heroSection,
         howItWorksSection,

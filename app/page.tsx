@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { defineQuery, groq } from "next-sanity";
 import Header from "@/components/header";
 import { sectionComponentsMapping } from "@/lib/utils";
+import { FloatingButton } from "@/components/floating-button";
 
 export const revalidate = 60;
 
@@ -11,6 +12,7 @@ export default async function Home() {
         `*[_type == "page" && slug.current == "/"][0] {
             title,
             header,
+            floatingButton,
             content[] {
                 ...,
                 venueCategories[]-> {
@@ -53,6 +55,8 @@ export default async function Home() {
                     // Fallback if the section type doesn't have a component mapping.
                     return <p key={index}>Section not found</p>;
                 })}
+
+                {data?.floatingButton && <FloatingButton {...data.floatingButton} />}
             </main>
         </>
     );

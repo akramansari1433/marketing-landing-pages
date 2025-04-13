@@ -361,6 +361,31 @@ export type Page = {
   } & VenueSection | {
     _key: string;
   } & FaqSection>;
+  floatingButton?: FloatingButton;
+};
+
+export type FloatingButton = {
+  _type: "floatingButton";
+  buttons?: Array<{
+    type?: "phone" | "whatsapp";
+    icon?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    phoneNumber?: string;
+    whatsappMessage?: string;
+    backgroundColor?: Color;
+    _key: string;
+  }>;
+  position?: "bottom-right" | "bottom-left";
 };
 
 export type ButtonType = {
@@ -483,7 +508,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | Facility | Page | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FaqSection | VenueSection | FacilitiesSection | VenueCategorySection | HeroWithFormSection | FormSection | TestimonialsSection | HowItWorksSection | HeroSection | FormField | NavigationItem | VenueCategory | Facility | Page | FloatingButton | ButtonType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Header | Slug | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[slug]/page.tsx
 // Variable: query
@@ -758,10 +783,11 @@ export type PageQueryResult = {
 
 // Source: ./app/page.tsx
 // Variable: dataQuery
-// Query: *[_type == "page" && slug.current == "/"][0] {            title,            header,            content[] {                ...,                venueCategories[]-> {                    ...,                    facilities[]-> {                        ...,                    }                },                facilities[]-> {                    ...,                 },                packages[] {                    ...,                    facilities[]-> {                    ...,                    },                },                venues[] {                    ...,                    facilities[]-> {                    ...,                    },                }            }           }
+// Query: *[_type == "page" && slug.current == "/"][0] {            title,            header,            floatingButton,            content[] {                ...,                venueCategories[]-> {                    ...,                    facilities[]-> {                        ...,                    }                },                facilities[]-> {                    ...,                 },                packages[] {                    ...,                    facilities[]-> {                    ...,                    },                },                venues[] {                    ...,                    facilities[]-> {                    ...,                    },                }            }           }
 export type DataQueryResult = {
   title: string | null;
   header: Header | null;
+  floatingButton: FloatingButton | null;
   content: Array<{
     _key: string;
     _type: "facilitiesSection";
@@ -1027,6 +1053,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"page\"]{\n        \"slug\": slug.current\n    }": QueryResult;
-    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            content[] {\n                ...,\n                venueCategories[]-> {\n                    ...,\n                    facilities[]-> {\n                        ...,\n                    }\n                },\n                facilities[]-> {\n                    ..., \n                },\n                packages[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                },\n                venues[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                }\n            }   \n        }": PageQueryResult | DataQueryResult;
+    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            content[] {\n                ...,\n                venueCategories[]-> {\n                    ...,\n                    facilities[]-> {\n                        ...,\n                    }\n                },\n                facilities[]-> {\n                    ..., \n                },\n                packages[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                },\n                venues[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                }\n            }   \n        }": PageQueryResult;
+    "*[_type == \"page\" && slug.current == \"/\"][0] {\n            title,\n            header,\n            floatingButton,\n            content[] {\n                ...,\n                venueCategories[]-> {\n                    ...,\n                    facilities[]-> {\n                        ...,\n                    }\n                },\n                facilities[]-> {\n                    ..., \n                },\n                packages[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                },\n                venues[] {\n                    ...,\n                    facilities[]-> {\n                    ...,\n                    },\n                }\n            }   \n        }": DataQueryResult;
   }
 }

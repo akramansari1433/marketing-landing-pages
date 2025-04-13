@@ -1,4 +1,4 @@
-import { defineType } from "sanity";
+import { defineType, defineField } from "sanity";
 
 export const page = defineType({
     name: "page",
@@ -38,6 +38,11 @@ export const page = defineType({
                 { type: "venueSection" },
                 { type: "faqSection" },
             ],
+        },
+        {
+            name: "floatingButton",
+            title: "Floating Button",
+            type: "floatingButton",
         },
     ],
     preview: {
