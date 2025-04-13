@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,22 +39,47 @@ export default function HowItWorksSection({
     backgroundColor,
 }: HowItWorksSection) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [showControls, setShowControls] = useState(true);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    const scrollLeft = () => {
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({
-                left: -300,
-                behavior: "smooth",
-            });
-        }
-    };
+    // Check if we need to show scroll controls based on content width
+    useEffect(() => {
+        const checkOverflow = () => {
+            if (scrollContainerRef.current) {
+                const container = scrollContainerRef.current;
+                const hasOverflow = container.scrollWidth > container.clientWidth;
+                setShowControls(hasOverflow);
+            }
+        };
 
-    const scrollRight = () => {
+        checkOverflow();
+        window.addEventListener("resize", checkOverflow);
+        return () => window.removeEventListener("resize", checkOverflow);
+    }, [steps]);
+
+    const scrollToCard = (direction: "left" | "right") => {
         if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({
-                left: 300,
-                behavior: "smooth",
-            });
+            const container = scrollContainerRef.current;
+            const cardWidth = container.querySelector(".step-card")?.clientWidth || 280;
+            const gap = 24; // 6 in tailwind's gap-6 equals 24px
+            const scrollAmount = cardWidth + gap;
+
+            if (direction === "left") {
+                const newIndex = Math.max(0, currentIndex - 1);
+                setCurrentIndex(newIndex);
+                container.scrollTo({
+                    left: newIndex * scrollAmount,
+                    behavior: "smooth",
+                });
+            } else {
+                const maxIndex = Math.max(0, (steps?.length || 0) - 1);
+                const newIndex = Math.min(maxIndex, currentIndex + 1);
+                setCurrentIndex(newIndex);
+                container.scrollTo({
+                    left: newIndex * scrollAmount,
+                    behavior: "smooth",
+                });
+            }
         }
     };
 
@@ -74,38 +99,47 @@ export default function HowItWorksSection({
 
                 {/* Mobile view - Scrollable layout with navigation buttons */}
                 <div className="relative max-w-7xl mx-auto px-4 md:px-6">
-                    {/* Navigation buttons */}
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
-                            onClick={scrollLeft}
-                            aria-label="Scroll left"
-                        >
-                            <ChevronLeft className="h-5 w-5" />
-                        </Button>
-                    </div>
+                    {/* Navigation buttons - only shown when needed */}
+                    {showControls && (
+                        <>
+                            <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
+                                    onClick={() => scrollToCard("left")}
+                                    aria-label="Scroll left"
+                                    disabled={currentIndex === 0}
+                                >
+                                    <ChevronLeft className="h-5 w-5" />
+                                </Button>
+                            </div>
 
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
-                            onClick={scrollRight}
-                            aria-label="Scroll right"
-                        >
-                            <ChevronRight className="h-5 w-5" />
-                        </Button>
-                    </div>
+                            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
+                                    onClick={() => scrollToCard("right")}
+                                    aria-label="Scroll right"
+                                    disabled={currentIndex >= (steps?.length || 0) - 1}
+                                >
+                                    <ChevronRight className="h-5 w-5" />
+                                </Button>
+                            </div>
+                        </>
+                    )}
 
-                    {/* Scrollable container */}
+                    {/* Scrollable container with center alignment when fewer cards */}
                     <div
                         ref={scrollContainerRef}
-                        className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide px-8"
+                        className={`flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide px-8 ${
+                            !showControls ? "justify-center" : ""
+                        }`}
+                        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                     >
                         {steps.map((step, index) => (
-                            <div key={index} className="flex-none w-[280px] snap-center">
+                            <div key={index} className="step-card flex-none w-[280px] snap-center">
                                 <StepCard step={step} />
                             </div>
                         ))}

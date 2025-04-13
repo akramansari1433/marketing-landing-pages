@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -23,31 +23,47 @@ export default function TestimonialsSection({
     backgroundColor,
 }: TestimonialsSection) {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const desktopScrollRef = useRef<HTMLDivElement>(null);
+    const [showControls, setShowControls] = useState(true);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    const nextTestimonial = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1));
-    };
+    // Check if we need to show scroll controls based on content width
+    useEffect(() => {
+        const checkOverflow = () => {
+            if (scrollContainerRef.current) {
+                const container = scrollContainerRef.current;
+                const hasOverflow = container.scrollWidth > container.clientWidth;
+                setShowControls(hasOverflow);
+            }
+        };
 
-    const prevTestimonial = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1));
-    };
+        checkOverflow();
+        window.addEventListener("resize", checkOverflow);
+        return () => window.removeEventListener("resize", checkOverflow);
+    }, [testimonials]);
 
-    const scrollLeft = () => {
-        if (desktopScrollRef.current) {
-            desktopScrollRef.current.scrollBy({
-                left: -300,
-                behavior: "smooth",
-            });
-        }
-    };
+    const scrollToCard = (direction: "left" | "right") => {
+        if (scrollContainerRef.current) {
+            const container = scrollContainerRef.current;
+            const cardWidth = container.querySelector(".testimonial-card")?.clientWidth || 350;
+            const gap = 24; // 6 in tailwind's gap-6 equals 24px
+            const scrollAmount = cardWidth + gap;
 
-    const scrollRight = () => {
-        if (desktopScrollRef.current) {
-            desktopScrollRef.current.scrollBy({
-                left: 300,
-                behavior: "smooth",
-            });
+            if (direction === "left") {
+                const newIndex = Math.max(0, currentIndex - 1);
+                setCurrentIndex(newIndex);
+                container.scrollTo({
+                    left: newIndex * scrollAmount,
+                    behavior: "smooth",
+                });
+            } else {
+                const maxIndex = Math.max(0, (testimonials?.length || 0) - 1);
+                const newIndex = Math.min(maxIndex, currentIndex + 1);
+                setCurrentIndex(newIndex);
+                container.scrollTo({
+                    left: newIndex * scrollAmount,
+                    behavior: "smooth",
+                });
+            }
         }
     };
 
@@ -63,38 +79,47 @@ export default function TestimonialsSection({
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-6">
-                {/* Navigation buttons */}
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
-                        onClick={scrollLeft}
-                        aria-label="Scroll left"
-                    >
-                        <ChevronLeft className="h-6 w-6" />
-                    </Button>
-                </div>
+                {/* Navigation buttons - only shown when needed */}
+                {showControls && (
+                    <>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
+                                onClick={() => scrollToCard("left")}
+                                aria-label="Scroll left"
+                                disabled={currentIndex === 0}
+                            >
+                                <ChevronLeft className="h-6 w-6" />
+                            </Button>
+                        </div>
 
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
-                        onClick={scrollRight}
-                        aria-label="Scroll right"
-                    >
-                        <ChevronRight className="h-6 w-6" />
-                    </Button>
-                </div>
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                className="rounded-full bg-background/80 backdrop-blur-sm shadow-md border-gray-200 hover:bg-background"
+                                onClick={() => scrollToCard("right")}
+                                aria-label="Scroll right"
+                                disabled={currentIndex >= (testimonials?.length || 0) - 1}
+                            >
+                                <ChevronRight className="h-6 w-6" />
+                            </Button>
+                        </div>
+                    </>
+                )}
 
-                {/* Scrollable container */}
+                {/* Scrollable container with center alignment when fewer cards */}
                 <div
-                    ref={desktopScrollRef}
-                    className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide px-8"
+                    ref={scrollContainerRef}
+                    className={`flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide px-8 ${
+                        !showControls ? "justify-center" : ""
+                    }`}
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                     {testimonials.map((testimonial, index) => (
-                        <div key={index} className="flex-none w-[300px] md:w-[350px] snap-center">
+                        <div key={index} className="testimonial-card flex-none w-[300px] md:w-[350px] snap-center">
                             <TestimonialCard testimonial={testimonial} />
                         </div>
                     ))}
