@@ -70,6 +70,9 @@ export type Geopoint = {
 
 export type ImageGallerySection = {
   _type: "imageGallerySection";
+  backgroundColor?: Color;
+  sectionTitle?: string;
+  sectionDescription?: string;
   images?: Array<{
     asset?: {
       _ref: string;
@@ -745,6 +748,9 @@ export type PageQueryResult = {
   } | {
     _key: string;
     _type: "imageGallerySection";
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    sectionDescription?: string;
     images?: Array<{
       asset?: {
         _ref: string;
@@ -1086,6 +1092,9 @@ export type DataQueryResult = {
   } | {
     _key: string;
     _type: "imageGallerySection";
+    backgroundColor?: Color;
+    sectionTitle?: string;
+    sectionDescription?: string;
     images?: Array<{
       asset?: {
         _ref: string;
